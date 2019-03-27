@@ -88,7 +88,7 @@
 <meta property="og:description" content="Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs论文核心内容1. WHATRanking question answer pairs，又称为答案选择，在QA系统中变得愈发重要。给定一个问题，答案选择致力于从一组备选中选出相关性最高的答案。解决这一问题的深度神经网络的核心思想在于将输入的句子编码为向量">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="d:/mydocument/%E6%9B%A6%E6%BA%90%E9%A1%B9%E7%9B%AE/model.png">
-<meta property="og:updated_time" content="2019-03-27T04:19:25.468Z">
+<meta property="og:updated_time" content="2019-03-27T05:22:10.717Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KABLSTM">
 <meta name="twitter:description" content="Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs论文核心内容1. WHATRanking question answer pairs，又称为答案选择，在QA系统中变得愈发重要。给定一个问题，答案选择致力于从一组备选中选出相关性最高的答案。解决这一问题的深度神经网络的核心思想在于将输入的句子编码为向量">
@@ -340,7 +340,7 @@
 <li>训练集肯定不能只用复杂问题，但是用简单问题的话，可能所有的备选项都是最终的答案.. 所以我们可能会缺少训练数据。</li>
 <li>论文里候选答案应该是一个“句子”，不是一个词，可能和我们的还有些区别。</li>
 </ol>
-<h2 id="具体方法"><a href="#具体方法" class="headerlink" title="具体方法"></a>具体方法</h2><p>给定一个问题q，本模型的目标是对一系列备选答案  $ A = {a_1, a_2, …, a_n} $ 进行排序。具体来说，</p>
+<h2 id="具体方法"><a href="#具体方法" class="headerlink" title="具体方法"></a>具体方法</h2><p>给定一个问题q，本模型的目标是对一系列备选答案  $A = {a_1, a_2, …, a_n}$ 进行排序。具体来说，</p>
 <ol>
 <li>首先使用两个Bi-LSTMs模型分别学习问题和答案的初始表示(initial representations)。</li>
 <li>然后设计了一个 context-guided attentive CNN，从句子的实体中学习基于知识的句子表示(knowledge-based sentence representation)。</li>
@@ -348,26 +348,33 @@
 <li>最后，通过一个全连接层来连接所有的特征，最后送入一个softmax层得到最终结果。</li>
 </ol>
 <p><img src="D:/mydocument/%E6%9B%A6%E6%BA%90%E9%A1%B9%E7%9B%AE/model.png" alt></p>
-<h3 id="1-Bidirectional-Long-Short-Term-Memory"><a href="#1-Bidirectional-Long-Short-Term-Memory" class="headerlink" title="1 Bidirectional Long Short-Term Memory"></a>1 Bidirectional Long Short-Term Memory</h3><p>在Bi-LSTM模型中，不仅获得过去文本的信息，同样获得未来文本的信息。Bi-LSTM层包含两个子网络（前向与后向）。时刻t的输出表示为 $h_t = [\vec{h_t}:\stackrel{\leftarrow}{h_t}]$,其中 $\vec{h_t}$ 表示前向网络的输出，$\stackrel{\leftarrow}{h_t}$ 表示后向网络的输出。给定问题q和答案a，我们可以分别生成初始的 contextual sentence representation $H_{init} \in R^{L \times d_h }$ ，其中$L$表示句子的长度，$d_h$表示$h_t$的维度。<br>$$<br>Q_{init} = Bi-LSTM(q);        A_{init} = Bi-LSTM(a)<br>$$</p>
-<h3 id="2-Knowledge-Module-Knowledge-based-Sentence-Representation-Learning"><a href="#2-Knowledge-Module-Knowledge-based-Sentence-Representation-Learning" class="headerlink" title="2 Knowledge Module: Knowledge-based Sentence Representation Learning"></a>2 Knowledge Module: Knowledge-based Sentence Representation Learning</h3><p>Knowledge module 设计用于在contextual information的指导下，从离散的候选实体embeddings中，学习基于知识的句子表示 (knowledge-based sentence representations )。</p>
+<h3 id="1-Bidirectional-Long-Short-Term-Memory"><a href="#1-Bidirectional-Long-Short-Term-Memory" class="headerlink" title="1 Bidirectional Long Short-Term Memory"></a>1 Bidirectional Long Short-Term Memory</h3><p>在Bi-LSTM模型中，不仅获得过去文本的信息，同样获得未来文本的信息。Bi-LSTM层包含两个子网络（前向与后向）。时刻t的输出表示为 $h_t = [\vec{h_t}:\stackrel{\leftarrow}{h_t}]$,其中 $\vec{h_t}$ 表示前向网络的输出，$\stackrel{\leftarrow}{h_t}$ 表示后向网络的输出。给定问题q和答案a，我们可以分别生成初始的 contextual sentence representation $H_{init} \in R^{L \times d_h }$ ，其中$L$表示句子的长度，$d_h$表示$h_t$的维度。 </p>
+<script type="math/tex; mode=display">
+Q_{init} = Bi-LSTM(q);        A_{init} = Bi-LSTM(a)</script><h3 id="2-Knowledge-Module-Knowledge-based-Sentence-Representation-Learning"><a href="#2-Knowledge-Module-Knowledge-based-Sentence-Representation-Learning" class="headerlink" title="2 Knowledge Module: Knowledge-based Sentence Representation Learning"></a>2 Knowledge Module: Knowledge-based Sentence Representation Learning</h3><p>Knowledge module 设计用于在contextual information的指导下，从离散的候选实体embeddings中，学习基于知识的句子表示 (knowledge-based sentence representations )。</p>
 <p>我们通过n-gram匹配进行实体提及检测(entity mention detection)，并为句子中的每个实体提及(entity mention)从知识图谱中获得top-K的实体候选项。由于实体的不确定性（例如 Boston可以表示城市或者人），我们设计了一个上下文引导的注意机制(context-guided attention mechanism)，通过聚集知识图谱中相应候选实体的embedding，学习句子中每个实体提及(entity mention)的知识表示(knowledge representation)。问题和答案的contextual sentence representation学习自Bi-LSTM层，同时知识图谱中实体的embeddings在TransE中预训练得到。</p>
-<p>形式上来说，我们用$E(t) = {e_1, e_2, …, e_K} \in R^{K \times d_e}$ 表示时刻t中实体提及的候选实体，其中$d_e$ 是知识图谱中entity embedding的维度。那么，t时刻 context-guided embedding for the word 为：<br>$$<br>m(t) = W_{em}E(t) + W_{hm}H_{init}<br>$$</p>
-<p>$$<br>s(t) \propto exp(w_{ms}^{T} tanh(m(t)))<br>$$</p>
-<p>$$<br>\widetilde{E(t)} = E(t)s(t)^T<br>$$</p>
-<p>其中 $W_{em}, W_{hm}, w_{ms}$都为需要学习的参数，$m(t)$为context-guided knowledge vectors, $s(t)$标志了应用到每个候选entity embedding $e_i$的context-attention weight。</p>
-<p>这一过程得到了句子中每个entity mention的context-guided representation。之后，一个CNN层用来获得local n-gram信息，并从之前得到的$\ $$\widetilde{E}$ 中学习一个更高层次的 knowledge-based sentence representation $H_{know} \in R^{L \times d_f}$ ，其中$d_f$是CNN层中卷积核的个数，L是句子的长度。<br>$$<br>Q_{know} = CNN(\widetilde{E_q}); A_{know} = CNN(\widetilde{E_a})<br>$$</p>
-<h3 id="3-Knowledge-aware-Attention-Context-based-Sentence-Representation-Learning"><a href="#3-Knowledge-aware-Attention-Context-based-Sentence-Representation-Learning" class="headerlink" title="3 Knowledge-aware Attention: Context-based Sentence Representation Learning"></a>3 Knowledge-aware Attention: Context-based Sentence Representation Learning</h3><p>Knowledge-aware attention mechanism 是使得QA pairs能够利用一些背景信息以及超越文本的隐藏关系的尝试。对于问题句子和答案句子，目前已经有了两种不同的句子级表示向量：从word embedding中学习得到的 $Q_{init} ，A_{init}$ 和从知识模型中获得的$Q_{know} ，A_{know}$ 这两种类型的句子向量将作为knowledge-aware attention层的输入。</p>
-<p>首先我们获得两个注意力矩阵：<br>$$<br>M_{init} = tanh(Q_{init}^TU_{init}A_{init})<br>$$</p>
-<p>$$<br>M_{know} = tanh(Q_{know}^TU_{know}A_{know})<br>$$</p>
-<p>其中，$U_{init}, U_{know}$ 都是需要学习的参数矩阵。</p>
-<p>之后，列向和行向的max-pooling应用于$M_{init}$ 来分别得到问题和答案的context-based attention vectors，同时对 $M_{know}$ 进行同样地操作得到knowledge-based attention向量。为了将问题的knowledge-aware influence纳入答案的attention representation中（以及将答案纳入问题），我们合并这两个attention vectors 来获得最终的knowledge-aware attention vectors, $a_q, a_a$<br>$$<br>a_q \propto (softmax(\max\limits_{1&lt;l&lt;L_q} M_{init}) + softmax(\max\limits_{1&lt;l&lt;L_q} M_{know}))<br>$$</p>
-<p>$$<br>a_a \propto (softmax(\max\limits_{1&lt;l&lt;L_a} M_{init}^T) + softmax(\max\limits_{1&lt;l&lt;L_a} M_{know}^T))<br>$$</p>
-<p>我们将attention vectors 与整体句子向量进行点积，得到问题q和答案a的 knowledge-aware attentive sentence representation, $s_q, s_a$<br>$$<br>s_q = [Q_{init}:Q_{know}]^Ta_q, s_a = [A_{init}:A_{know}]^Ta_a<br>$$</p>
-<h3 id="4-Hidden-Layer-and-Softmax-Layer"><a href="#4-Hidden-Layer-and-Softmax-Layer" class="headerlink" title="4 Hidden Layer and Softmax Layer"></a>4 Hidden Layer and Softmax Layer</h3><p>我们获得了一些额外的特征：</p>
+<p>形式上来说，我们用$E(t) = {e_1, e_2, …, e_K} \in R^{K \times d_e}$ 表示时刻t中实体提及的候选实体，其中$d_e$ 是知识图谱中entity embedding的维度。那么，t时刻 context-guided embedding for the word 为：</p>
+<script type="math/tex; mode=display">
+m(t) = W_{em}E(t) + W_{hm}H_{init}</script><script type="math/tex; mode=display">
+s(t) \propto exp(w_{ms}^{T} tanh(m(t)))</script><script type="math/tex; mode=display">
+\widetilde{E(t)} = E(t)s(t)^T</script><p>其中 $W_{em}, W_{hm}, w_{ms}$都为需要学习的参数，$m(t)$为context-guided knowledge vectors, $s(t)$标志了应用到每个候选entity embedding $e_i$的context-attention weight。</p>
+<p>这一过程得到了句子中每个entity mention的context-guided representation。之后，一个CNN层用来获得local n-gram信息，并从之前得到的$ $$\widetilde{E}$ 中学习一个更高层次的 knowledge-based sentence representation $H_{know} \in R^{L \times d_f}$ ，其中$d_f$是CNN层中卷积核的个数，L是句子的长度。</p>
+<script type="math/tex; mode=display">
+Q_{know} = CNN(\widetilde{E_q}); A_{know} = CNN(\widetilde{E_a})</script><h3 id="3-Knowledge-aware-Attention-Context-based-Sentence-Representation-Learning"><a href="#3-Knowledge-aware-Attention-Context-based-Sentence-Representation-Learning" class="headerlink" title="3 Knowledge-aware Attention: Context-based Sentence Representation Learning"></a>3 Knowledge-aware Attention: Context-based Sentence Representation Learning</h3><p>Knowledge-aware attention mechanism 是使得QA pairs能够利用一些背景信息以及超越文本的隐藏关系的尝试。对于问题句子和答案句子，目前已经有了两种不同的句子级表示向量：从word embedding中学习得到的 $Q_{init} ，A_{init}$ 和从知识模型中获得的$Q_{know} ，A_{know}$ 这两种类型的句子向量将作为knowledge-aware attention层的输入。</p>
+<p>首先我们获得两个注意力矩阵：</p>
+<script type="math/tex; mode=display">
+M_{init} = tanh(Q_{init}^TU_{init}A_{init})</script><script type="math/tex; mode=display">
+M_{know} = tanh(Q_{know}^TU_{know}A_{know})</script><p>其中，$U_{init}, U_{know}$ 都是需要学习的参数矩阵。</p>
+<p>之后，列向和行向的max-pooling应用于$M_{init}$ 来分别得到问题和答案的context-based attention vectors，同时对 $M_{know}$ 进行同样地操作得到knowledge-based attention向量。为了将问题的knowledge-aware influence纳入答案的attention representation中（以及将答案纳入问题），我们合并这两个attention vectors 来获得最终的knowledge-aware attention vectors, $a_q, a_a$</p>
+<script type="math/tex; mode=display">
+a_q \propto (softmax(\max\limits_{1<l<L_q} M_{init}) + softmax(\max\limits_{1<l<L_q} M_{know}))</script><script type="math/tex; mode=display">
+a_a \propto (softmax(\max\limits_{1<l<L_a} M_{init}^T) + softmax(\max\limits_{1<l<L_a} M_{know}^T))</script><p>我们将attention vectors 与整体句子向量进行点积，得到问题q和答案a的 knowledge-aware attentive sentence representation, $s_q, s_a$</p>
+<script type="math/tex; mode=display">
+s_q = [Q_{init}:Q_{know}]^Ta_q, s_a = [A_{init}:A_{know}]^Ta_a</script><h3 id="4-Hidden-Layer-and-Softmax-Layer"><a href="#4-Hidden-Layer-and-Softmax-Layer" class="headerlink" title="4 Hidden Layer and Softmax Layer"></a>4 Hidden Layer and Softmax Layer</h3><p>我们获得了一些额外的特征：</p>
 <p>首先我们计算得到 $s_q, s_a$的双线性相似度score： $sim(s_q, s_a) = s_q^TWs_a$, 其中$W$是需要学习的参数。</p>
 <p>此外得到the same word overlap feature $X_{feat} \in R^4$（参考 Learning to Rank Short Text Pairs with Convolutional Deep Neural Networks， Learning to Rank<br>Question Answer Pairs with Holographic Dual LSTM Architecture ）。因此最终全连接层的输入是向量：$[s_q, sim(s_q, s_a), s_a, X_{feat}]$ ,其输出接着通过一个用于二分类的softmax layer。</p>
-<p>整个模型通过训练使得交叉熵损失函数最小：<br>$$<br>L = - \sum_{i = 1}^N [y_ilog p_i + (1-y_i)log(1-p_i)]+\lambda||\theta||_2^2<br>$$</p>
-
+<p>整个模型通过训练使得交叉熵损失函数最小：</p>
+<script type="math/tex; mode=display">
+L = - \sum_{i = 1}^N [y_ilog p_i + (1-y_i)log(1-p_i)]+\lambda||\theta||_2^2</script>
       
     </div>
     
@@ -746,6 +753,8 @@
   
 
   
+  
+
 
   
 
