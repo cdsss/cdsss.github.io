@@ -321,59 +321,14 @@
 
       
         
-          
-            <h1 id="Knowledge-aware-Attentive-Neural-Network-for-Ranking-Question-Answer-Pairs"><a href="#Knowledge-aware-Attentive-Neural-Network-for-Ranking-Question-Answer-Pairs" class="headerlink" title="Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs"></a>Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs</h1><h2 id="论文核心内容"><a href="#论文核心内容" class="headerlink" title="论文核心内容"></a>论文核心内容</h2><h3 id="1-WHAT"><a href="#1-WHAT" class="headerlink" title="1. WHAT"></a>1. WHAT</h3><p>Ranking question answer pairs，又称为答案选择，在QA系统中变得愈发重要。给定一个问题，答案选择致力于从一组备选中选出相关性最高的答案。解决这一问题的深度神经网络的核心思想在于将输入的句子编码为向量形式。基于这一向量表示，输出层可以得到两段文本的matching score。本文提出了KABLSTM模型，该模型利用从知识图谱中获得的外部知识丰富QA句子的representation 学习。同时提出了一种context-knowledge的交互学习架构，通过这一架构进行 Ranking question answer pairs。</p>
-<h3 id="2-WHY"><a href="#2-WHY" class="headerlink" title="2. WHY"></a>2. WHY</h3><ol>
-<li>来自知识图谱的背景知识在问题回答中很重要，然而来自知识图谱的背景知识在用于QA的神经网络模型中运用较少。</li>
-<li>回答问题中冗余问题与噪声问题仍待解决，而在以往的研究中，通常只利用来自知识图谱的外部知识对单个句子进行知识感知学习，而没有关注不同句子之间的相互关系，这一相互关系对问题答案的排序是很重要的。</li>
-</ol>
-<h3 id="3-HOW"><a href="#3-HOW" class="headerlink" title="3. HOW"></a>3. HOW</h3><p>如上面所述，本模型提出了context-knowledge交互的学习架构，利用句子中上下文信息的同时，将知识图谱中的外部知识嵌入到句子表示中，使得得到的句子的特征同时受到context和knowledge的影响，最终通过softmax层得到对应的分数，以此达到对备选答案的排序。具体内容间具体方法一节。</p>
-<h3 id="4-对复杂问题回答的启示"><a href="#4-对复杂问题回答的启示" class="headerlink" title="4. 对复杂问题回答的启示"></a>4. 对复杂问题回答的启示</h3><p>以下面这一问题为例：</p>
-<blockquote>
-<p>Which siRNA based drug is in clinical trials for the treatment of pancreatic cancer?</p>
-</blockquote>
-<p>这一问题我们首先能识别出来两个核心实体：drug, pancreatic cancer。但是这一问题有两个限制：siRNA based 和 in clinical trials。按照这篇论文的方法就是，我们首先获得所有能治疗pancreatic cancer的药物作为备选项，然后对结果进行排序。排序分数的确定需要通过上下文信息以及知识图谱中的外部信息。大概的过程是：对这一个问题，识别出siRNA based, clinical trial等一些entity mention，然后对每个备选答案在知识图谱中关联的entity里找出和entity mention相关度较高entity，也作为信息用来抽取特征，最后根据抽取到的特征得到这一备选项是答案的分数。</p>
-<p>如果按照这样的思路来解决我们面临的问题，</p>
-<ol>
-<li>训练集肯定不能只用复杂问题，但是用简单问题的话，可能所有的备选项都是最终的答案.. 所以我们可能会缺少训练数据。</li>
-<li>论文里候选答案应该是一个“句子”，不是一个词，可能和我们的还有些区别。</li>
-</ol>
-<h2 id="具体方法"><a href="#具体方法" class="headerlink" title="具体方法"></a>具体方法</h2><p>给定一个问题q，本模型的目标是对一系列备选答案  $A = {a_1, a_2, …, a_n}$ 进行排序。具体来说，</p>
-<ol>
-<li>首先使用两个Bi-LSTMs模型分别学习问题和答案的初始表示(initial representations)。</li>
-<li>然后设计了一个 context-guided attentive CNN，从句子的实体中学习基于知识的句子表示(knowledge-based sentence representation)。</li>
-<li>之后，引入了我们提出的知识感知注意机制(knowledge-aware attention mechanism)来学习最终的知识感知注意句子表示(knowledge-aware attentive sentence representation)。</li>
-<li>最后，通过一个全连接层来连接所有的特征，最后送入一个softmax层得到最终结果。</li>
-</ol>
-<p><img src="D:/mydocument/%E6%9B%A6%E6%BA%90%E9%A1%B9%E7%9B%AE/model.png" alt></p>
-<h3 id="1-Bidirectional-Long-Short-Term-Memory"><a href="#1-Bidirectional-Long-Short-Term-Memory" class="headerlink" title="1 Bidirectional Long Short-Term Memory"></a>1 Bidirectional Long Short-Term Memory</h3><p>在Bi-LSTM模型中，不仅获得过去文本的信息，同样获得未来文本的信息。Bi-LSTM层包含两个子网络（前向与后向）。时刻t的输出表示为 $h_t = [\vec{h_t}:\stackrel{\leftarrow}{h_t}]$,其中 $\vec{h_t}$ 表示前向网络的输出，$\stackrel{\leftarrow}{h_t}$ 表示后向网络的输出。给定问题q和答案a，我们可以分别生成初始的 contextual sentence representation $H_{init} \in R^{L \times d_h }$ ，其中$L$表示句子的长度，$d_h$表示$h_t$的维度。 </p>
-<script type="math/tex; mode=display">
-Q_{init} = Bi-LSTM(q);        A_{init} = Bi-LSTM(a)</script><h3 id="2-Knowledge-Module-Knowledge-based-Sentence-Representation-Learning"><a href="#2-Knowledge-Module-Knowledge-based-Sentence-Representation-Learning" class="headerlink" title="2 Knowledge Module: Knowledge-based Sentence Representation Learning"></a>2 Knowledge Module: Knowledge-based Sentence Representation Learning</h3><p>Knowledge module 设计用于在contextual information的指导下，从离散的候选实体embeddings中，学习基于知识的句子表示 (knowledge-based sentence representations )。</p>
-<p>我们通过n-gram匹配进行实体提及检测(entity mention detection)，并为句子中的每个实体提及(entity mention)从知识图谱中获得top-K的实体候选项。由于实体的不确定性（例如 Boston可以表示城市或者人），我们设计了一个上下文引导的注意机制(context-guided attention mechanism)，通过聚集知识图谱中相应候选实体的embedding，学习句子中每个实体提及(entity mention)的知识表示(knowledge representation)。问题和答案的contextual sentence representation学习自Bi-LSTM层，同时知识图谱中实体的embeddings在TransE中预训练得到。</p>
-<p>形式上来说，我们用$E(t) = {e_1, e_2, …, e_K} \in R^{K \times d_e}$ 表示时刻t中实体提及的候选实体，其中$d_e$ 是知识图谱中entity embedding的维度。那么，t时刻 context-guided embedding for the word 为：</p>
-<script type="math/tex; mode=display">
-m(t) = W_{em}E(t) + W_{hm}H_{init}</script><script type="math/tex; mode=display">
-s(t) \propto exp(w_{ms}^{T} tanh(m(t)))</script><script type="math/tex; mode=display">
-\widetilde{E(t)} = E(t)s(t)^T</script><p>其中 $W_{em}, W_{hm}, w_{ms}$都为需要学习的参数，$m(t)$为context-guided knowledge vectors, $s(t)$标志了应用到每个候选entity embedding $e_i$的context-attention weight。</p>
-<p>这一过程得到了句子中每个entity mention的context-guided representation。之后，一个CNN层用来获得local n-gram信息，并从之前得到的$ $$\widetilde{E}$ 中学习一个更高层次的 knowledge-based sentence representation $H_{know} \in R^{L \times d_f}$ ，其中$d_f$是CNN层中卷积核的个数，L是句子的长度。</p>
-<script type="math/tex; mode=display">
-Q_{know} = CNN(\widetilde{E_q}); A_{know} = CNN(\widetilde{E_a})</script><h3 id="3-Knowledge-aware-Attention-Context-based-Sentence-Representation-Learning"><a href="#3-Knowledge-aware-Attention-Context-based-Sentence-Representation-Learning" class="headerlink" title="3 Knowledge-aware Attention: Context-based Sentence Representation Learning"></a>3 Knowledge-aware Attention: Context-based Sentence Representation Learning</h3><p>Knowledge-aware attention mechanism 是使得QA pairs能够利用一些背景信息以及超越文本的隐藏关系的尝试。对于问题句子和答案句子，目前已经有了两种不同的句子级表示向量：从word embedding中学习得到的 $Q_{init} ，A_{init}$ 和从知识模型中获得的$Q_{know} ，A_{know}$ 这两种类型的句子向量将作为knowledge-aware attention层的输入。</p>
-<p>首先我们获得两个注意力矩阵：</p>
-<script type="math/tex; mode=display">
-M_{init} = tanh(Q_{init}^TU_{init}A_{init})</script><script type="math/tex; mode=display">
-M_{know} = tanh(Q_{know}^TU_{know}A_{know})</script><p>其中，$U_{init}, U_{know}$ 都是需要学习的参数矩阵。</p>
-<p>之后，列向和行向的max-pooling应用于$M_{init}$ 来分别得到问题和答案的context-based attention vectors，同时对 $M_{know}$ 进行同样地操作得到knowledge-based attention向量。为了将问题的knowledge-aware influence纳入答案的attention representation中（以及将答案纳入问题），我们合并这两个attention vectors 来获得最终的knowledge-aware attention vectors, $a_q, a_a$</p>
-<script type="math/tex; mode=display">
-a_q \propto (softmax(\max\limits_{1<l<L_q} M_{init}) + softmax(\max\limits_{1<l<L_q} M_{know}))</script><script type="math/tex; mode=display">
-a_a \propto (softmax(\max\limits_{1<l<L_a} M_{init}^T) + softmax(\max\limits_{1<l<L_a} M_{know}^T))</script><p>我们将attention vectors 与整体句子向量进行点积，得到问题q和答案a的 knowledge-aware attentive sentence representation, $s_q, s_a$</p>
-<script type="math/tex; mode=display">
-s_q = [Q_{init}:Q_{know}]^Ta_q, s_a = [A_{init}:A_{know}]^Ta_a</script><h3 id="4-Hidden-Layer-and-Softmax-Layer"><a href="#4-Hidden-Layer-and-Softmax-Layer" class="headerlink" title="4 Hidden Layer and Softmax Layer"></a>4 Hidden Layer and Softmax Layer</h3><p>我们获得了一些额外的特征：</p>
-<p>首先我们计算得到 $s_q, s_a$的双线性相似度score： $sim(s_q, s_a) = s_q^TWs_a$, 其中$W$是需要学习的参数。</p>
-<p>此外得到the same word overlap feature $X_{feat} \in R^4$（参考 Learning to Rank Short Text Pairs with Convolutional Deep Neural Networks， Learning to Rank<br>Question Answer Pairs with Holographic Dual LSTM Architecture ）。因此最终全连接层的输入是向量：$[s_q, sim(s_q, s_a), s_a, X_{feat}]$ ,其输出接着通过一个用于二分类的softmax layer。</p>
-<p>整个模型通过训练使得交叉熵损失函数最小：</p>
-<script type="math/tex; mode=display">
-L = - \sum_{i = 1}^N [y_ilog p_i + (1-y_i)log(1-p_i)]+\lambda||\theta||_2^2</script>
-          
+          <h1 id="Knowledge-aware-Attentive-Neural-Network-for-Ranking-Question-Answer-Pairs"><a href="#Knowledge-aware-Attentive-Neural-Network-for-Ranking-Question-Answer-Pairs" class="headerlink" title="Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs"></a>Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs</h1><h2 id="论文核心内容"><a href="#论文核心内容" class="headerlink" title="论文核心内容"></a>论文核心内容</h2><h3 id="1-WHAT"><a href="#1-WHAT" class="headerlink" title="1. WHAT"></a>1. WHAT</h3><p>Ranking question answer pairs，又称为答案选择，在QA系统中变得愈发重要。给定一个问题，答案选择致力于从一组备选中选出相关性最高的答案。解决这一问题的深度神经网络的核心思想在于将输入的句子编码为向量形式。基于这一向量表示，输出层可以得到两段文本的matching score。本文提出了KABLSTM模型，该模型利用从知识图谱中获得的外部知识丰富QA句子的representation 学习。同时提出了一种context-knowledge的交互学习架构，通过这一架构进行 Ranking question answer pairs。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/27/KABLSTM/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
