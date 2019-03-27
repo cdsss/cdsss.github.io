@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="nlp,QA,">
 
 
 
@@ -79,13 +79,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="CDS&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs论文核心内容1. WHATRanking question answer pairs，又称为答案选择，在QA系统中变得愈发重要。给定一个问题，答案选择致力于从一组备选中选出相关性最高的答案。解决这一问题的深度神经网络的核心思想在于将输入的句子编码为向量">
+<meta name="keywords" content="nlp,QA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KABLSTM">
+<meta property="og:url" content="http://yoursite.com/2019/03/27/KABLSTM/index.html">
 <meta property="og:site_name" content="CDS&#39;s Blog">
+<meta property="og:description" content="Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs论文核心内容1. WHATRanking question answer pairs，又称为答案选择，在QA系统中变得愈发重要。给定一个问题，答案选择致力于从一组备选中选出相关性最高的答案。解决这一问题的深度神经网络的核心思想在于将输入的句子编码为向量">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="d:/mydocument/%E6%9B%A6%E6%BA%90%E9%A1%B9%E7%9B%AE/model.png">
+<meta property="og:updated_time" content="2019-03-27T04:19:25.468Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CDS&#39;s Blog">
+<meta name="twitter:title" content="KABLSTM">
+<meta name="twitter:description" content="Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs论文核心内容1. WHATRanking question answer pairs，又称为答案选择，在QA系统中变得愈发重要。给定一个问题，答案选择致力于从一组备选中选出相关性最高的答案。解决这一问题的深度神经网络的核心思想在于将输入的句子编码为向量">
+<meta name="twitter:image" content="d:/mydocument/%E6%9B%A6%E6%BA%90%E9%A1%B9%E7%9B%AE/model.png">
 
 
 
@@ -115,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/27/KABLSTM/">
 
 
 
 
 
-  <title>CDS's Blog</title>
+  <title>KABLSTM | CDS's Blog</title>
   
 
 
@@ -140,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +220,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/27/KABLSTM/" itemprop="url">KABLSTM</a></h1>
+          <h1 class="post-title" itemprop="name headline">KABLSTM</h1>
         
 
         <div class="post-meta">
@@ -320,9 +324,7 @@
       
 
       
-        
-          
-            <h1 id="Knowledge-aware-Attentive-Neural-Network-for-Ranking-Question-Answer-Pairs"><a href="#Knowledge-aware-Attentive-Neural-Network-for-Ranking-Question-Answer-Pairs" class="headerlink" title="Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs"></a>Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs</h1><h2 id="论文核心内容"><a href="#论文核心内容" class="headerlink" title="论文核心内容"></a>论文核心内容</h2><h3 id="1-WHAT"><a href="#1-WHAT" class="headerlink" title="1. WHAT"></a>1. WHAT</h3><p>Ranking question answer pairs，又称为答案选择，在QA系统中变得愈发重要。给定一个问题，答案选择致力于从一组备选中选出相关性最高的答案。解决这一问题的深度神经网络的核心思想在于将输入的句子编码为向量形式。基于这一向量表示，输出层可以得到两段文本的matching score。本文提出了KABLSTM模型，该模型利用从知识图谱中获得的外部知识丰富QA句子的representation 学习。同时提出了一种context-knowledge的交互学习架构，通过这一架构进行 Ranking question answer pairs。</p>
+        <h1 id="Knowledge-aware-Attentive-Neural-Network-for-Ranking-Question-Answer-Pairs"><a href="#Knowledge-aware-Attentive-Neural-Network-for-Ranking-Question-Answer-Pairs" class="headerlink" title="Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs"></a>Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs</h1><h2 id="论文核心内容"><a href="#论文核心内容" class="headerlink" title="论文核心内容"></a>论文核心内容</h2><h3 id="1-WHAT"><a href="#1-WHAT" class="headerlink" title="1. WHAT"></a>1. WHAT</h3><p>Ranking question answer pairs，又称为答案选择，在QA系统中变得愈发重要。给定一个问题，答案选择致力于从一组备选中选出相关性最高的答案。解决这一问题的深度神经网络的核心思想在于将输入的句子编码为向量形式。基于这一向量表示，输出层可以得到两段文本的matching score。本文提出了KABLSTM模型，该模型利用从知识图谱中获得的外部知识丰富QA句子的representation 学习。同时提出了一种context-knowledge的交互学习架构，通过这一架构进行 Ranking question answer pairs。</p>
 <h3 id="2-WHY"><a href="#2-WHY" class="headerlink" title="2. WHY"></a>2. WHY</h3><ol>
 <li>来自知识图谱的背景知识在问题回答中很重要，然而来自知识图谱的背景知识在用于QA的神经网络模型中运用较少。</li>
 <li>回答问题中冗余问题与噪声问题仍待解决，而在以往的研究中，通常只利用来自知识图谱的外部知识对单个句子进行知识感知学习，而没有关注不同句子之间的相互关系，这一相互关系对问题答案的排序是很重要的。</li>
@@ -366,8 +368,6 @@
 <p>此外得到the same word overlap feature $X_{feat} \in R^4$（参考 Learning to Rank Short Text Pairs with Convolutional Deep Neural Networks， Learning to Rank<br>Question Answer Pairs with Holographic Dual LSTM Architecture ）。因此最终全连接层的输入是向量：$[s_q, sim(s_q, s_a), s_a, X_{feat}]$ ,其输出接着通过一个用于二分类的softmax layer。</p>
 <p>整个模型通过训练使得交叉熵损失函数最小：<br>$$<br>L = - \sum_{i = 1}^N [y_ilog p_i + (1-y_i)log(1-p_i)]+\lambda||\theta||_2^2<br>$$</p>
 
-          
-        
       
     </div>
     
@@ -382,307 +382,38 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/JavaScript-基础教程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sss">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CDS's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/26/JavaScript-基础教程/" itemprop="url">JavaScript 基础教程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-26T19:29:00+08:00">
-                2019-03-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端开发/" itemprop="url" rel="index">
-                    <span itemprop="name">前端开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/nlp/" rel="tag"># nlp</a>
           
-
+            <a href="/tags/QA/" rel="tag"># QA</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h1 id="JavaScript-教程"><a href="#JavaScript-教程" class="headerlink" title="JavaScript 教程"></a>JavaScript 教程</h1><h2 id="JS-基本教程"><a href="#JS-基本教程" class="headerlink" title="JS 基本教程"></a>JS 基本教程</h2><p>本教程参考<a href="http://www.w3school.com.cn/js/index.asp" target="_blank" rel="noopener">w3school JavaScript教程</a></p>
-<h3 id="JS-简介"><a href="#JS-简介" class="headerlink" title="JS 简介"></a>JS 简介</h3><p>JavaScript 是脚本语言，是一种轻量级的编程语言，是可插入 HTML 页面的编程代码。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/26/JavaScript-基础教程/#more" rel="contents">
-              Read more &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/26/JavaScript-基础教程/" rel="next" title="JavaScript 基础教程">
+                <i class="fa fa-chevron-left"></i> JavaScript 基础教程
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sss">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CDS's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/26/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-26T13:48:54+08:00">
-                2019-03-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tools/" itemprop="url" rel="index">
-                    <span itemprop="name">tools</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/26/hello-world/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -692,10 +423,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -703,6 +435,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -723,8 +459,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -784,6 +529,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Knowledge-aware-Attentive-Neural-Network-for-Ranking-Question-Answer-Pairs"><span class="nav-number">1.</span> <span class="nav-text">Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#论文核心内容"><span class="nav-number">1.1.</span> <span class="nav-text">论文核心内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-WHAT"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. WHAT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-WHY"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. WHY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-HOW"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. HOW</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-对复杂问题回答的启示"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 对复杂问题回答的启示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体方法"><span class="nav-number">1.2.</span> <span class="nav-text">具体方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Bidirectional-Long-Short-Term-Memory"><span class="nav-number">1.2.1.</span> <span class="nav-text">1 Bidirectional Long Short-Term Memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Knowledge-Module-Knowledge-based-Sentence-Representation-Learning"><span class="nav-number">1.2.2.</span> <span class="nav-text">2 Knowledge Module: Knowledge-based Sentence Representation Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Knowledge-aware-Attention-Context-based-Sentence-Representation-Learning"><span class="nav-number">1.2.3.</span> <span class="nav-text">3 Knowledge-aware Attention: Context-based Sentence Representation Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Hidden-Layer-and-Softmax-Layer"><span class="nav-number">1.2.4.</span> <span class="nav-text">4 Hidden Layer and Softmax Layer</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -924,6 +685,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
