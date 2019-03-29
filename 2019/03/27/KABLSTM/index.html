@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="CDS&#39;s Blog">
 <meta property="og:description" content="Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs论文核心内容1. WHATRanking question answer pairs，又称为答案选择，在QA系统中变得愈发重要。给定一个问题，答案选择致力于从一组备选中选出相关性最高的答案。解决这一问题的深度神经网络的核心思想在于将输入的句子编码为向量">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="d:/mydocument/%E6%9B%A6%E6%BA%90%E9%A1%B9%E7%9B%AE/model.png">
-<meta property="og:updated_time" content="2019-03-27T05:43:15.472Z">
+<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/KABLSTM/model.png">
+<meta property="og:updated_time" content="2019-03-29T09:53:38.663Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KABLSTM">
 <meta name="twitter:description" content="Knowledge-aware Attentive Neural Network for Ranking Question Answer Pairs论文核心内容1. WHATRanking question answer pairs，又称为答案选择，在QA系统中变得愈发重要。给定一个问题，答案选择致力于从一组备选中选出相关性最高的答案。解决这一问题的深度神经网络的核心思想在于将输入的句子编码为向量">
-<meta name="twitter:image" content="d:/mydocument/%E6%9B%A6%E6%BA%90%E9%A1%B9%E7%9B%AE/model.png">
+<meta name="twitter:image" content="http://pp4gqi65b.bkt.clouddn.com/image/KABLSTM/model.png">
 
 
 
@@ -399,7 +399,7 @@
 <li>之后，引入了我们提出的知识感知注意机制(knowledge-aware attention mechanism)来学习最终的知识感知注意句子表示(knowledge-aware attentive sentence representation)。</li>
 <li>最后，通过一个全连接层来连接所有的特征，最后送入一个softmax层得到最终结果。</li>
 </ol>
-<p><img src="D:/mydocument/%E6%9B%A6%E6%BA%90%E9%A1%B9%E7%9B%AE/model.png" alt></p>
+<p><img src="http://pp4gqi65b.bkt.clouddn.com/image/KABLSTM/model.png" alt></p>
 <h3 id="1-Bidirectional-Long-Short-Term-Memory"><a href="#1-Bidirectional-Long-Short-Term-Memory" class="headerlink" title="1 Bidirectional Long Short-Term Memory"></a>1 Bidirectional Long Short-Term Memory</h3><p>在Bi-LSTM模型中，不仅获得过去文本的信息，同样获得未来文本的信息。Bi-LSTM层包含两个子网络（前向与后向）。时刻t的输出表示为 $h_t = [\vec{h_t}:\stackrel{\leftarrow}{h_t}]$,其中 $\vec{h_t}$ 表示前向网络的输出，$\stackrel{\leftarrow}{h_t}$ 表示后向网络的输出。给定问题q和答案a，我们可以分别生成初始的 contextual sentence representation $H_{init} \in R^{L \times d_h }$ ，其中$L$表示句子的长度，$d_h$表示$h_t$的维度。 </p>
 <script type="math/tex; mode=display">
 Q_{init} = Bi-LSTM(q);        A_{init} = Bi-LSTM(a)</script><h3 id="2-Knowledge-Module-Knowledge-based-Sentence-Representation-Learning"><a href="#2-Knowledge-Module-Knowledge-based-Sentence-Representation-Learning" class="headerlink" title="2 Knowledge Module: Knowledge-based Sentence Representation Learning"></a>2 Knowledge Module: Knowledge-based Sentence Representation Learning</h3><p>Knowledge module 设计用于在contextual information的指导下，从离散的候选实体embeddings中，学习基于知识的句子表示 (knowledge-based sentence representations )。</p>
