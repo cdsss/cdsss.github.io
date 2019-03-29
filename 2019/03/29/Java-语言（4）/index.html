@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java 语言（4）—— from Java course, Prof. Z, Fudan University">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 语言（4）">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/Java-语言（4）/index.html">
+<meta property="og:site_name" content="CDS&#39;s Blog">
+<meta property="og:description" content="Java 语言（4）—— from Java course, Prof. Z, Fudan University">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="d:/mycourse/专业选修%20-%20JAVA/picture/4_1.png">
+<meta property="og:image" content="d:/mycourse/专业选修%20-%20JAVA/picture/4_2.png">
+<meta property="og:image" content="d:/mycourse/专业选修%20-%20JAVA/picture/4_3.png">
+<meta property="og:image" content="d:/mycourse/专业选修%20-%20JAVA/picture/4_4.png">
+<meta property="og:updated_time" content="2019-03-29T10:51:51.861Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 语言（4）">
+<meta name="twitter:description" content="Java 语言（4）—— from Java course, Prof. Z, Fudan University">
+<meta name="twitter:image" content="d:/mycourse/专业选修%20-%20JAVA/picture/4_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/29/Java-语言（4）/">
+
+
+
+
+
+  <title>Java 语言（4） | CDS's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CDS's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">design yourself</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/Java-语言（4）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sss">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CDS's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java 语言（4）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-29T18:44:55+08:00">
+                2019-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/" itemprop="url" rel="index">
+                    <span itemprop="name">编程语言</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/复旦大学课程/" itemprop="url" rel="index">
+                    <span itemprop="name">复旦大学课程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  879
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Java-语言（4）"><a href="#Java-语言（4）" class="headerlink" title="Java 语言（4）"></a>Java 语言（4）</h1><p>—— from Java course, Prof. Z, Fudan University</p>
+<a id="more"></a>
+<h2 id="1-数据的存储"><a href="#1-数据的存储" class="headerlink" title="1 数据的存储"></a>1 数据的存储</h2><h3 id="Java-的数据类型"><a href="#Java-的数据类型" class="headerlink" title="Java 的数据类型"></a>Java 的数据类型</h3><ul>
+<li>基本数据类型：short, int, long, double, float, byte, boolean, char</li>
+<li>类：变量、方法</li>
+<li>引用<ul>
+<li><code>Element a = new Element();</code> a 是创建的类的引用。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Java-的内存管理"><a href="#Java-的内存管理" class="headerlink" title="Java 的内存管理"></a>Java 的内存管理</h3><p>方法中声明的基本数据类型、对象的引用一般存在栈中</p>
+<p>类的成员变量（基本数据类型、对象的引用）一般存在堆中</p>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Element</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">private</span> Element next;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNext</span><span class="params">(Element nextElement)</span></span>&#123;</span><br><span class="line">        next = nextElement;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">example</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">float</span> f = <span class="number">2.0</span>;</span><br><span class="line">    Element e;</span><br><span class="line">    e = <span class="keyword">new</span> Element();</span><br><span class="line">    Element e2 = <span class="keyword">new</span> Element();</span><br><span class="line">    e.setNext(e2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="D:\mycourse\专业选修 - JAVA\picture\4_1.png" alt></p>
+<p>类的方法的实现（代码）只需要存储一份。</p>
+<p><img src="D:\mycourse\专业选修 - JAVA\picture\4_2.png" alt></p>
+<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><h4 id="static-变量"><a href="#static-变量" class="headerlink" title="static 变量"></a>static 变量</h4><p>类的变量一般通过类的实例化来分配空间，有些变量是本类所有对象共用。因此引入类的 static 数据（所有实例化对象共享，只存储一份）。</p>
+<h4 id="static-方法"><a href="#static-方法" class="headerlink" title="static 方法"></a>static 方法</h4><p>类的方法一般通过类的实例化对象来调用，有些方法和对象的实例化数据没有关系。因此引入类的 static 方法。</p>
+<p>static 方法</p>
+<ul>
+<li>只处理 static 数据</li>
+<li>调用方式：类名.方法名（普通方法为：对象名.方法名）</li>
+</ul>
+<h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><h4 id="final-修饰的类的变量"><a href="#final-修饰的类的变量" class="headerlink" title="final 修饰的类的变量"></a>final 修饰的类的变量</h4><p>有些数据不希望在对象创建后被修改，因此引入 final 变量。</p>
+<p>final 变量须在分配内存空间时赋值（不能在除了构造方法之外的方法中赋值）。</p>
+<h4 id="final-修饰的引用"><a href="#final-修饰的引用" class="headerlink" title="final 修饰的引用"></a>final 修饰的引用</h4><p>final 修饰对象的引用，该引用只能指向一个对象，不能再修改，但是被指向的对象的数据可以修改。</p>
+<h4 id="final-static"><a href="#final-static" class="headerlink" title="final/static"></a>final/static</h4><p>final static 用于修饰常量，例如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> PI = <span class="number">3.1415926535</span>;</span><br></pre></td></tr></table></figure>
+<p>因为是 static 的，会在对象创建前分配空间；因为是 final 的，必须在分配空间的时候赋值，因此不可以在构造函数中赋值。</p>
+<h2 id="2-String-类"><a href="#2-String-类" class="headerlink" title="2 String 类"></a>2 String 类</h2><h3 id="String-类的数据"><a href="#String-类的数据" class="headerlink" title="String 类的数据"></a>String 类的数据</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span>[] value;	<span class="comment">//存储字串</span></span><br></pre></td></tr></table></figure>
+<p>String 构造之后，字串不能更改，主要原因有：</p>
+<ul>
+<li>实现字符串池，复用空间</li>
+<li>拷贝时只需要复制引用</li>
+<li>多线程安全</li>
+<li>Hash 值固定，不用重算</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"12345"</span>;</span><br><span class="line">String b = a;</span><br></pre></td></tr></table></figure>
+<p>创建内容为 12345 的 String 对象，引用赋值 a</p>
+<p>将该引用赋值给 b</p>
+<p><img src="D:\mycourse\专业选修 - JAVA\picture\4_3.png" alt></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"12345"</span>;</span><br><span class="line">a = a.concat(<span class="string">"67"</span>);</span><br></pre></td></tr></table></figure>
+<p>创建内容为 12345 的 String 对象 1， 67 的对象 2</p>
+<p>对象 1 的引用赋值 a</p>
+<p>创建内容为 1234567 的 String 对象，引用赋值 a</p>
+<p><img src="D:\mycourse\专业选修 - JAVA\picture\4_4.png" alt></p>
+<h3 id="String-类的常用方法"><a href="#String-类的常用方法" class="headerlink" title="String 类的常用方法"></a>String 类的常用方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> <span class="title">charAt</span><span class="params">(<span class="keyword">int</span> dex)</span></span>;	<span class="comment">// 取字符</span></span><br><span class="line"></span><br><span class="line"><span class="function">String <span class="title">subString</span><span class="params">(<span class="keyword">int</span> beginIndex)</span></span>;	<span class="comment">// 取子串</span></span><br><span class="line"><span class="function">String <span class="title">subString</span><span class="params">(<span class="keyword">int</span> beginIndex, <span class="keyword">int</span> endIndex)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">length</span><span class="params">()</span></span>;	<span class="comment">// 获取字符串长度</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(<span class="keyword">int</span> ch)</span></span>;	<span class="comment">// 字符串中定位</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(<span class="keyword">int</span> ch, <span class="keyword">int</span> fromIndex)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(String str)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(String str, <span class="keyword">int</span> fromIndex)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">String <span class="title">concat</span><span class="params">(String str)</span></span>;	<span class="comment">// 连接两个字符串</span></span><br><span class="line"></span><br><span class="line"><span class="function">String <span class="title">toUpperCase</span><span class="params">()</span></span>;	<span class="comment">// 大小写转换</span></span><br><span class="line"><span class="function">String <span class="title">toLowerCase</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">endsWith</span><span class="params">(String suffix)</span></span>;	<span class="comment">//判断字符串后缀内容</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">compareTo</span><span class="params">(String anotherString)</span></span>;	<span class="comment">// 字符串比较</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">compareToIgnoreCase</span><span class="params">(String str)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span></span>;	<span class="comment">//判断字符串对象是否相等</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">equalsCase</span><span class="params">(String anotherString)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="String-对象的"><a href="#String-对象的" class="headerlink" title="String 对象的 +"></a>String 对象的 +</h3><p>Java 不支持操作符重载，只实现了 String 类的 + 重载</p>
+<ul>
+<li>类似于 concat</li>
+<li>可以 + 各种基本变量，甚至各种对象（先转成字串）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"a"</span>;</span><br><span class="line">String b = <span class="string">"b"</span>;</span><br><span class="line">String c = <span class="string">"a"</span>;</span><br><span class="line">String ab1 = a + b;</span><br><span class="line">String ab2 = <span class="string">"ab"</span>;</span><br><span class="line">String ab3 = a.concat(b);</span><br><span class="line">String ab4 = a + b;</span><br><span class="line">System.out.println(ab1.hashCode());		<span class="comment">// 3105</span></span><br><span class="line">System.out.println(ab2.hashCode());		<span class="comment">// 3105</span></span><br><span class="line">System.out.println(ab3.hashCode());		<span class="comment">// 3105</span></span><br><span class="line">System.out.println(ab4.hashCode());		<span class="comment">// 3105</span></span><br><span class="line">System.out.println(a == c);				<span class="comment">// true</span></span><br><span class="line">System.out.println(ab1 == ab2);			<span class="comment">// false</span></span><br><span class="line">System.out.println(ab1 == ab3);			<span class="comment">// false</span></span><br><span class="line">System.out.println(ab1 == ab4);			<span class="comment">// false</span></span><br><span class="line">System.out.println(ab2 == ab3);			<span class="comment">// false</span></span><br><span class="line">System.out.println(ab2 == ab4);			<span class="comment">// false</span></span><br><span class="line">System.out.println(ab3 == ab4);			<span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h3 id="StringBuffer-与-StringTokenizer"><a href="#StringBuffer-与-StringTokenizer" class="headerlink" title="StringBuffer 与 StringTokenizer"></a>StringBuffer 与 StringTokenizer</h3><p>动态更改内容的字串类</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/27/KABLSTM/" rel="next" title="KABLSTM">
+                <i class="fa fa-chevron-left"></i> KABLSTM
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">sss</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-语言（4）"><span class="nav-number">1.</span> <span class="nav-text">Java 语言（4）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-数据的存储"><span class="nav-number">1.1.</span> <span class="nav-text">1 数据的存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-的数据类型"><span class="nav-number">1.1.1.</span> <span class="nav-text">Java 的数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-的内存管理"><span class="nav-number">1.1.2.</span> <span class="nav-text">Java 的内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static"><span class="nav-number">1.1.3.</span> <span class="nav-text">static</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#static-变量"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">static 变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#static-方法"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">static 方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#final"><span class="nav-number">1.1.4.</span> <span class="nav-text">final</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#final-修饰的类的变量"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">final 修饰的类的变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#final-修饰的引用"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">final 修饰的引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#final-static"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">final/static</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-String-类"><span class="nav-number">1.2.</span> <span class="nav-text">2 String 类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String-类的数据"><span class="nav-number">1.2.1.</span> <span class="nav-text">String 类的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String-类的常用方法"><span class="nav-number">1.2.2.</span> <span class="nav-text">String 类的常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String-对象的"><span class="nav-number">1.2.3.</span> <span class="nav-text">String 对象的 +</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer-与-StringTokenizer"><span class="nav-number">1.2.4.</span> <span class="nav-text">StringBuffer 与 StringTokenizer</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sss</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>
