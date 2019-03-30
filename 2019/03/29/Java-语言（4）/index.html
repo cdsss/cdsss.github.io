@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="CDS&#39;s Blog">
 <meta property="og:description" content="Java 语言（4）—— from Java course, Prof. Z, Fudan University">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="d:/mycourse/专业选修%20-%20JAVA/picture/4_1.png">
-<meta property="og:image" content="d:/mycourse/专业选修%20-%20JAVA/picture/4_2.png">
-<meta property="og:image" content="d:/mycourse/专业选修%20-%20JAVA/picture/4_3.png">
-<meta property="og:image" content="d:/mycourse/专业选修%20-%20JAVA/picture/4_4.png">
-<meta property="og:updated_time" content="2019-03-29T10:51:51.861Z">
+<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/JAVA/4_1.png">
+<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/JAVA/4_2.png">
+<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/JAVA/4_3.png">
+<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/JAVA/4_4.png">
+<meta property="og:updated_time" content="2019-03-30T06:12:15.654Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 语言（4）">
 <meta name="twitter:description" content="Java 语言（4）—— from Java course, Prof. Z, Fudan University">
-<meta name="twitter:image" content="d:/mycourse/专业选修%20-%20JAVA/picture/4_1.png">
+<meta name="twitter:image" content="http://pp4gqi65b.bkt.clouddn.com/image/JAVA/4_1.png">
 
 
 
@@ -321,8 +321,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程语言/复旦大学课程/" itemprop="url" rel="index">
-                    <span itemprop="name">复旦大学课程</span>
+                  <a href="/categories/编程语言/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
                   </a>
                 </span>
 
@@ -403,9 +403,9 @@
 <p>类的成员变量（基本数据类型、对象的引用）一般存在堆中</p>
 <p>示例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Element</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">private</span> Element next;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNext</span><span class="params">(Element nextElement)</span></span>&#123;</span><br><span class="line">        next = nextElement;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">example</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">float</span> f = <span class="number">2.0</span>;</span><br><span class="line">    Element e;</span><br><span class="line">    e = <span class="keyword">new</span> Element();</span><br><span class="line">    Element e2 = <span class="keyword">new</span> Element();</span><br><span class="line">    e.setNext(e2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="D:\mycourse\专业选修 - JAVA\picture\4_1.png" alt></p>
+<p><img src="http://pp4gqi65b.bkt.clouddn.com/image/JAVA/4_1.png" alt></p>
 <p>类的方法的实现（代码）只需要存储一份。</p>
-<p><img src="D:\mycourse\专业选修 - JAVA\picture\4_2.png" alt></p>
+<p><img src="http://pp4gqi65b.bkt.clouddn.com/image/JAVA/4_2.png" alt></p>
 <h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><h4 id="static-变量"><a href="#static-变量" class="headerlink" title="static 变量"></a>static 变量</h4><p>类的变量一般通过类的实例化来分配空间，有些变量是本类所有对象共用。因此引入类的 static 数据（所有实例化对象共享，只存储一份）。</p>
 <h4 id="static-方法"><a href="#static-方法" class="headerlink" title="static 方法"></a>static 方法</h4><p>类的方法一般通过类的实例化对象来调用，有些方法和对象的实例化数据没有关系。因此引入类的 static 方法。</p>
 <p>static 方法</p>
@@ -430,12 +430,12 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"12345"</span>;</span><br><span class="line">String b = a;</span><br></pre></td></tr></table></figure>
 <p>创建内容为 12345 的 String 对象，引用赋值 a</p>
 <p>将该引用赋值给 b</p>
-<p><img src="D:\mycourse\专业选修 - JAVA\picture\4_3.png" alt></p>
+<p><img src="http://pp4gqi65b.bkt.clouddn.com/image/JAVA/4_3.png" alt></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"12345"</span>;</span><br><span class="line">a = a.concat(<span class="string">"67"</span>);</span><br></pre></td></tr></table></figure>
 <p>创建内容为 12345 的 String 对象 1， 67 的对象 2</p>
 <p>对象 1 的引用赋值 a</p>
 <p>创建内容为 1234567 的 String 对象，引用赋值 a</p>
-<p><img src="D:\mycourse\专业选修 - JAVA\picture\4_4.png" alt></p>
+<p><img src="http://pp4gqi65b.bkt.clouddn.com/image/JAVA/4_4.png" alt></p>
 <h3 id="String-类的常用方法"><a href="#String-类的常用方法" class="headerlink" title="String 类的常用方法"></a>String 类的常用方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> <span class="title">charAt</span><span class="params">(<span class="keyword">int</span> dex)</span></span>;	<span class="comment">// 取字符</span></span><br><span class="line"></span><br><span class="line"><span class="function">String <span class="title">subString</span><span class="params">(<span class="keyword">int</span> beginIndex)</span></span>;	<span class="comment">// 取子串</span></span><br><span class="line"><span class="function">String <span class="title">subString</span><span class="params">(<span class="keyword">int</span> beginIndex, <span class="keyword">int</span> endIndex)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">length</span><span class="params">()</span></span>;	<span class="comment">// 获取字符串长度</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(<span class="keyword">int</span> ch)</span></span>;	<span class="comment">// 字符串中定位</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(<span class="keyword">int</span> ch, <span class="keyword">int</span> fromIndex)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(String str)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(String str, <span class="keyword">int</span> fromIndex)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">String <span class="title">concat</span><span class="params">(String str)</span></span>;	<span class="comment">// 连接两个字符串</span></span><br><span class="line"></span><br><span class="line"><span class="function">String <span class="title">toUpperCase</span><span class="params">()</span></span>;	<span class="comment">// 大小写转换</span></span><br><span class="line"><span class="function">String <span class="title">toLowerCase</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">endsWith</span><span class="params">(String suffix)</span></span>;	<span class="comment">//判断字符串后缀内容</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">compareTo</span><span class="params">(String anotherString)</span></span>;	<span class="comment">// 字符串比较</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">compareToIgnoreCase</span><span class="params">(String str)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span></span>;	<span class="comment">//判断字符串对象是否相等</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">equalsCase</span><span class="params">(String anotherString)</span></span>;</span><br></pre></td></tr></table></figure>
 <h3 id="String-对象的"><a href="#String-对象的" class="headerlink" title="String 对象的 +"></a>String 对象的 +</h3><p>Java 不支持操作符重载，只实现了 String 类的 + 重载</p>
 <ul>
