@@ -250,6 +250,202 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/01/LeetCode题解（1）：双指针法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sss">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CDS's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/01/LeetCode题解（1）：双指针法/" itemprop="url">LeetCode题解（1）：双指针法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-01T14:41:46+08:00">
+                2019-04-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  757
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="LeetCode-题解（1）：双指针法"><a href="#LeetCode-题解（1）：双指针法" class="headerlink" title="LeetCode 题解（1）：双指针法"></a>LeetCode 题解（1）：双指针法</h1><p>learn from <a href="http://cyc2018.gitee.io/cs-notes/#/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E5%8F%8C%E6%8C%87%E9%92%88" target="_blank" rel="noopener">cyc2018</a> and <a href="https://leetcode.com/" target="_blank" rel="noopener">LeetCode</a></p>
+<p>双指针法指的是：在遍历对象的过程中，不使用单个指针进行访问，而是用两个相同方向或者相反方向的指针进行扫描，从而达到相应的目的。双指针问题的本质是由于两个或者多个元素有相互作用或者相关联。</p>
+<h2 id="167-TWO-SUM-II-Input-array-is-sorted-easy"><a href="#167-TWO-SUM-II-Input-array-is-sorted-easy" class="headerlink" title="167. TWO SUM II - Input array is sorted (easy)"></a><a href="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/" target="_blank" rel="noopener">167. TWO SUM II - Input array is sorted (easy)</a></h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>在有序数组中找到两个数字，使其和为一特定值。函数返回两个数的索引，其中索引 1 小于索引 2。</p>
+<p>你可以假设每次输入只有一组特定解，并且不能使用同一元素两次。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// example</span></span><br><span class="line"><span class="comment">// Input: numbers = [2, 7, 11, 15], target = 9</span></span><br><span class="line"><span class="comment">// Output: [1, 2]</span></span><br><span class="line"><span class="comment">// Explanation: 2 + 7 = 9 =&gt; index1 = 1, index2 = 2</span></span><br></pre></td></tr></table></figure>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; numbers, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; index = &#123;<span class="number">0</span>, numbers.size() - <span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">while</span>(index[<span class="number">0</span>] != index[<span class="number">1</span>])&#123;</span><br><span class="line">            <span class="keyword">int</span> tmp = numbers[index[<span class="number">0</span>]] + numbers[index[<span class="number">1</span>]];</span><br><span class="line">            <span class="keyword">if</span>(tmp == target)&#123;</span><br><span class="line">                ++ index[<span class="number">0</span>];</span><br><span class="line">                ++ index[<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">return</span> index;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(tmp &gt; target)</span><br><span class="line">                -- index[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                ++ index[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="number">-1</span>,<span class="number">-1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h3><p><a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener">1. TWO SUM (easy)</a></p>
+<p><a href="https://leetcode.com/problems/two-sum-iv-input-is-a-bst/" target="_blank" rel="noopener">653. TWO SUM IV - Input is a BST (easy)</a></p>
+<h2 id="633-Sum-of-Squared-Numbers-easy"><a href="#633-Sum-of-Squared-Numbers-easy" class="headerlink" title="633. Sum of Squared Numbers (easy)"></a><a href="https://leetcode.com/problems/sum-of-square-numbers/description/" target="_blank" rel="noopener">633. Sum of Squared Numbers (easy)</a></h2><h3 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定一个非负整数 $c$ ，判断是否存在两个整数 $a$ 和 $b$ 使得：$a^2 + b^2 = c$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// example</span></span><br><span class="line"><span class="comment">// Input: 5</span></span><br><span class="line"><span class="comment">// Output: True</span></span><br><span class="line"><span class="comment">// Explanation: 1*1 + 2*2 = 5</span></span><br></pre></td></tr></table></figure>
+<h3 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h3><h4 id="失败经历（一）"><a href="#失败经历（一）" class="headerlink" title="失败经历（一）"></a>失败经历（一）</h4><p>限定两个边界分别为 $0$ 和 $sqrt(c)$，结果出现如下错误：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Input: 2147482647</span></span><br><span class="line"><span class="comment">// line 7: int tmp = i*i + j*j;</span></span><br><span class="line"><span class="comment">// Line 7: Char 17: runtime error: signed integer overflow: 829921 + 2146654224 cannot be represented in type 'int' (solution.cpp)</span></span><br></pre></td></tr></table></figure>
+<h4 id="正解"><a href="#正解" class="headerlink" title="正解"></a>正解</h4><p>将类型由 <code>int</code> 改为 <code>long</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">judgeSquareSum</span><span class="params">(<span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> i = <span class="number">0</span>;					<span class="comment">// type: long</span></span><br><span class="line">        <span class="keyword">long</span> j = <span class="built_in">sqrt</span>(c);			<span class="comment">// type: long</span></span><br><span class="line">        <span class="keyword">while</span>(i &lt;= j)&#123;</span><br><span class="line">            <span class="keyword">long</span> tmp = i*i + j*j;	<span class="comment">// type: long</span></span><br><span class="line">            <span class="keyword">if</span>(tmp == c)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(tmp &gt; c)</span><br><span class="line">                -- j;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                ++ i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="相关问题-1"><a href="#相关问题-1" class="headerlink" title="相关问题"></a>相关问题</h3><p><a href="https://leetcode.com/problems/valid-perfect-square/" target="_blank" rel="noopener">367. Valid Perfect Square (easy)</a> </p>
+<h2 id="345-Reverse-Vowels-of-a-String-easy"><a href="#345-Reverse-Vowels-of-a-String-easy" class="headerlink" title="345. Reverse Vowels of a String (easy)"></a><a href="https://leetcode.com/problems/reverse-vowels-of-a-string/" target="_blank" rel="noopener">345. Reverse Vowels of a String (easy)</a></h2><h3 id="问题描述-2"><a href="#问题描述-2" class="headerlink" title="问题描述"></a>问题描述</h3><p>翻转字符串中的元音字母。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// example</span></span><br><span class="line"><span class="comment">// input: "leetcode"</span></span><br><span class="line"><span class="comment">// output: "leotcede"</span></span><br></pre></td></tr></table></figure>
+<h3 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">reverseVowels</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j = s.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">string</span> vowels = <span class="string">"aeiouAEIOU"</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">while</span>(i &lt; s.size())&#123;</span><br><span class="line">                <span class="keyword">if</span>(vowels.find(s[i]) == vowels.npos)</span><br><span class="line">                    ++ i;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">while</span>(j &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(vowels.find(s[j]) == vowels.npos)</span><br><span class="line">                -- j;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= j)</span><br><span class="line">                <span class="keyword">return</span> s;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">char</span> tmp = s[i];</span><br><span class="line">                s[i] = s[j];</span><br><span class="line">                s[j] = tmp;</span><br><span class="line">                ++ i;</span><br><span class="line">                -- j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="相关问题-2"><a href="#相关问题-2" class="headerlink" title="相关问题"></a>相关问题</h3><p><a href="https://leetcode.com/problems/reverse-string/" target="_blank" rel="noopener">344. Reverse String (easy)</a></p>
+<h2 id="680-Valid-Palindrome-II-easy"><a href="#680-Valid-Palindrome-II-easy" class="headerlink" title="680. Valid Palindrome II (easy)"></a><a href="https://leetcode.com/problems/valid-palindrome-ii/" target="_blank" rel="noopener">680. Valid Palindrome II (easy)</a></h2><h3 id="问题描述-3"><a href="#问题描述-3" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定非空字符串s，最多可以删除一个字符。判断你是否能把它变成回文。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// example</span></span><br><span class="line"><span class="comment">// Input: "aba"</span></span><br><span class="line"><span class="comment">// Output: true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Input: "abca"</span></span><br><span class="line"><span class="comment">// Output: true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// The string will only contain lowercase characters a-z. The maximum length of the string is 50000.</span></span><br></pre></td></tr></table></figure>
+<h3 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h3><p>采用分治法可以很好的解决问题。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">validPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j = s.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i] != s[j])</span><br><span class="line">                <span class="keyword">return</span> palindrome(s, i, j - <span class="number">1</span>) || palindrome(s, i + <span class="number">1</span>, j);</span><br><span class="line">            ++ i;</span><br><span class="line">            -- j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">palindrome</span><span class="params">(<span class="built_in">string</span> s, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i] != s[j])</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            ++ i;</span><br><span class="line">            -- j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="相关问题-3"><a href="#相关问题-3" class="headerlink" title="相关问题"></a>相关问题</h3><p><a href="https://leetcode.com/problems/valid-palindrome/" target="_blank" rel="noopener">125. Valid Palindrome (easy)</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/摊还分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1370,7 +1566,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1381,7 +1577,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1392,7 +1588,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
