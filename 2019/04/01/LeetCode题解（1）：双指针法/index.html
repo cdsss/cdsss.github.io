@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="LeetCode 题解（1）：双指针法learn from cyc2018 and LeetCode 双指针法指的是：在遍历对象的过程中，不使用单个指针进行访问，而是用两个相同方向或者相反方向的指针进行扫描，从而达到相应的目的。双指针问题的本质是由于两个或者多个元素有相互作用或者相关联。 167. TWO SUM II - Input array is sorted (easy)问题描述在有序数组">
+<meta name="description" content="LeetCode 题解（1）：双指针法learn from cyc2018 and LeetCode 双指针法指的是：在遍历对象的过程中，不使用单个指针进行访问，而是用两个相同方向或者相反方向的指针进行扫描，从而达到相应的目的。双指针问题的本质是由于两个或者多个元素有相互作用或者相关联。">
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode题解（1）：双指针法">
 <meta property="og:url" content="http://yoursite.com/2019/04/01/LeetCode题解（1）：双指针法/index.html">
 <meta property="og:site_name" content="CDS&#39;s Blog">
-<meta property="og:description" content="LeetCode 题解（1）：双指针法learn from cyc2018 and LeetCode 双指针法指的是：在遍历对象的过程中，不使用单个指针进行访问，而是用两个相同方向或者相反方向的指针进行扫描，从而达到相应的目的。双指针问题的本质是由于两个或者多个元素有相互作用或者相关联。 167. TWO SUM II - Input array is sorted (easy)问题描述在有序数组">
+<meta property="og:description" content="LeetCode 题解（1）：双指针法learn from cyc2018 and LeetCode 双指针法指的是：在遍历对象的过程中，不使用单个指针进行访问，而是用两个相同方向或者相反方向的指针进行扫描，从而达到相应的目的。双指针问题的本质是由于两个或者多个元素有相互作用或者相关联。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-01T06:43:02.653Z">
+<meta property="og:updated_time" content="2019-04-01T06:44:56.594Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode题解（1）：双指针法">
-<meta name="twitter:description" content="LeetCode 题解（1）：双指针法learn from cyc2018 and LeetCode 双指针法指的是：在遍历对象的过程中，不使用单个指针进行访问，而是用两个相同方向或者相反方向的指针进行扫描，从而达到相应的目的。双指针问题的本质是由于两个或者多个元素有相互作用或者相关联。 167. TWO SUM II - Input array is sorted (easy)问题描述在有序数组">
+<meta name="twitter:description" content="LeetCode 题解（1）：双指针法learn from cyc2018 and LeetCode 双指针法指的是：在遍历对象的过程中，不使用单个指针进行访问，而是用两个相同方向或者相反方向的指针进行扫描，从而达到相应的目的。双指针问题的本质是由于两个或者多个元素有相互作用或者相关联。">
 
 
 
@@ -376,6 +376,7 @@
       
         <h1 id="LeetCode-题解（1）：双指针法"><a href="#LeetCode-题解（1）：双指针法" class="headerlink" title="LeetCode 题解（1）：双指针法"></a>LeetCode 题解（1）：双指针法</h1><p>learn from <a href="http://cyc2018.gitee.io/cs-notes/#/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E5%8F%8C%E6%8C%87%E9%92%88" target="_blank" rel="noopener">cyc2018</a> and <a href="https://leetcode.com/" target="_blank" rel="noopener">LeetCode</a></p>
 <p>双指针法指的是：在遍历对象的过程中，不使用单个指针进行访问，而是用两个相同方向或者相反方向的指针进行扫描，从而达到相应的目的。双指针问题的本质是由于两个或者多个元素有相互作用或者相关联。</p>
+<a id="more"></a>
 <h2 id="167-TWO-SUM-II-Input-array-is-sorted-easy"><a href="#167-TWO-SUM-II-Input-array-is-sorted-easy" class="headerlink" title="167. TWO SUM II - Input array is sorted (easy)"></a><a href="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/" target="_blank" rel="noopener">167. TWO SUM II - Input array is sorted (easy)</a></h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>在有序数组中找到两个数字，使其和为一特定值。函数返回两个数的索引，其中索引 1 小于索引 2。</p>
 <p>你可以假设每次输入只有一组特定解，并且不能使用同一元素两次。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// example</span></span><br><span class="line"><span class="comment">// Input: numbers = [2, 7, 11, 15], target = 9</span></span><br><span class="line"><span class="comment">// Output: [1, 2]</span></span><br><span class="line"><span class="comment">// Explanation: 2 + 7 = 9 =&gt; index1 = 1, index2 = 2</span></span><br></pre></td></tr></table></figure>
