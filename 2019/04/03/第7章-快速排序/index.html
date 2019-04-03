@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="复旦大学课程,">
+  <meta name="keywords" content="复旦大学课程,算法,排序,">
 
 
 
@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="限失真信源编码from 信息论与编码/ 曹雪虹 本章主要讨论限失真信源编码，从分析失真函数、信息率失真函数出发，给出限失真编码定理。">
-<meta name="keywords" content="复旦大学课程">
+<meta name="description" content="快速排序快速排序是一种最坏情况时间复杂度为 $\Theta(n^2)$ 的排序算法，但是快速排序在实际排序应用中通常是最好的选择，因为它的平均性能非常好，期望时间复杂度是 $\Theta(n\lg n) $。 快速排序的描述快速排序使用了分治思想：  分解：数组 $A[p .. r]$ 被划分为两个（可能为空）子数组 $A[p..q-1]$ 和 $A[q+1..r]$，使得 $A[p..q-1]$">
+<meta name="keywords" content="复旦大学课程,算法,排序">
 <meta property="og:type" content="article">
-<meta property="og:title" content="限失真编码">
-<meta property="og:url" content="http://yoursite.com/2019/03/31/限失真编码/index.html">
+<meta property="og:title" content="第7章-快速排序">
+<meta property="og:url" content="http://yoursite.com/2019/04/03/第7章-快速排序/index.html">
 <meta property="og:site_name" content="CDS&#39;s Blog">
-<meta property="og:description" content="限失真信源编码from 信息论与编码/ 曹雪虹 本章主要讨论限失真信源编码，从分析失真函数、信息率失真函数出发，给出限失真编码定理。">
+<meta property="og:description" content="快速排序快速排序是一种最坏情况时间复杂度为 $\Theta(n^2)$ 的排序算法，但是快速排序在实际排序应用中通常是最好的选择，因为它的平均性能非常好，期望时间复杂度是 $\Theta(n\lg n) $。 快速排序的描述快速排序使用了分治思想：  分解：数组 $A[p .. r]$ 被划分为两个（可能为空）子数组 $A[p..q-1]$ 和 $A[q+1..r]$，使得 $A[p..q-1]$">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/IT/4_1_2.png">
-<meta property="og:updated_time" content="2019-03-31T08:48:29.091Z">
+<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/algorithm/sort/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F.gif">
+<meta property="og:updated_time" content="2019-04-03T05:20:51.511Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="限失真编码">
-<meta name="twitter:description" content="限失真信源编码from 信息论与编码/ 曹雪虹 本章主要讨论限失真信源编码，从分析失真函数、信息率失真函数出发，给出限失真编码定理。">
-<meta name="twitter:image" content="http://pp4gqi65b.bkt.clouddn.com/image/IT/4_1_2.png">
+<meta name="twitter:title" content="第7章-快速排序">
+<meta name="twitter:description" content="快速排序快速排序是一种最坏情况时间复杂度为 $\Theta(n^2)$ 的排序算法，但是快速排序在实际排序应用中通常是最好的选择，因为它的平均性能非常好，期望时间复杂度是 $\Theta(n\lg n) $。 快速排序的描述快速排序使用了分治思想：  分解：数组 $A[p .. r]$ 被划分为两个（可能为空）子数组 $A[p..q-1]$ 和 $A[q+1..r]$，使得 $A[p..q-1]$">
+<meta name="twitter:image" content="http://pp4gqi65b.bkt.clouddn.com/image/algorithm/sort/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F.gif">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/31/限失真编码/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/03/第7章-快速排序/">
 
 
 
 
 
-  <title>限失真编码 | CDS's Blog</title>
+  <title>第7章-快速排序 | CDS's Blog</title>
   
 
 
@@ -256,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/限失真编码/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/第7章-快速排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sss">
@@ -273,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">限失真编码</h1>
+          <h1 class="post-title" itemprop="name headline">第7章-快速排序</h1>
         
 
         <div class="post-meta">
@@ -285,8 +285,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T16:46:22+08:00">
-                2019-03-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-03T13:17:51+08:00">
+                2019-04-03
               </time>
             
 
@@ -308,8 +308,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/信息论与编码/" itemprop="url" rel="index">
-                    <span itemprop="name">信息论与编码</span>
+                  <a href="/categories/算法导论/" itemprop="url" rel="index">
+                    <span itemprop="name">算法导论</span>
                   </a>
                 </span>
 
@@ -339,7 +339,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.4k
+                  965
                 </span>
               
 
@@ -355,7 +355,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6
+                  3
                 </span>
               
             </div>
@@ -376,77 +376,35 @@
       
 
       
-        <h1 id="限失真信源编码"><a href="#限失真信源编码" class="headerlink" title="限失真信源编码"></a>限失真信源编码</h1><p>from 信息论与编码/ 曹雪虹</p>
-<p>本章主要讨论限失真信源编码，从分析失真函数、信息率失真函数出发，给出限失真编码定理。</p>
-<a id="more"></a>
-<h2 id="1-平均失真和信息率失真函数"><a href="#1-平均失真和信息率失真函数" class="headerlink" title="1 平均失真和信息率失真函数"></a>1 平均失真和信息率失真函数</h2><p>在实际问题中，信号有一定的失真是可以容忍的。但是当失真大于某一限度后，信息质量将被严重损伤。要规定失真限度，必须现有一个定量的失真测度，为此引入失真函数。</p>
-<h3 id="1-1-失真函数"><a href="#1-1-失真函数" class="headerlink" title="1.1 失真函数"></a>1.1 失真函数</h3><p>某信源 $X$，经过有失真的信源编码器，输出 $Y$，产生的失真大小用一个量来表示，即失真函数 $d(x_i, y_j)$，以衡量用 $y_j$ 代替 $x_i$ 所引起的失真程度。一般失真函数定义为：</p>
-<script type="math/tex; mode=display">
-d(x_i, y_j) = \begin{cases}
-0 &  &x_i = y_j \\
-\alpha & \alpha > 0 & x_i \not= y_j
-\end{cases}</script><p>单个符号的失真度的全体构成矩阵，称为失真矩阵</p>
-<script type="math/tex; mode=display">
-\boldsymbol{d} = \begin{bmatrix}
-d(a_1, b_1)      & \cdots & d(a_1, b_m)      \\
-\vdots & \ddots & \vdots \\
-d(a_n, b_1)      & \cdots & d(a_n, b_m)
-\end{bmatrix}</script><p>失真函数 $d(x_i, y_j)$ 的函数形式可以根据需要任意选取，常用的失真函数有：</p>
+        <h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>快速排序是一种最坏情况时间复杂度为 $\Theta(n^2)$ 的排序算法，但是快速排序在实际排序应用中通常是最好的选择，因为它的平均性能非常好，期望时间复杂度是 $\Theta(n\lg n) $。</p>
+<h2 id="快速排序的描述"><a href="#快速排序的描述" class="headerlink" title="快速排序的描述"></a>快速排序的描述</h2><p>快速排序使用了分治思想：</p>
 <ul>
-<li>绝对失真：$d(x_i, y_j) =  |x_i - y_j|$ </li>
-<li>均方失真：$d(x_i, y_j) = (x_i-y_j)^2$</li>
-<li>相对失真：$d(x_i, y_j) = |x_i - y_j| / |x_i|$</li>
-<li>误码失真：$d(x_i, y_j) = \delta(x_i, y_j) = \begin{cases}0 &amp; x_1 = y_j \ 1 &amp; 其他\end{cases}$</li>
+<li>分解：数组 $A[p .. r]$ 被划分为两个（可能为空）子数组 $A[p..q-1]$ 和 $A[q+1..r]$，使得 $A[p..q-1]$ 中的每一个元素都小于等于  $A[q]$，而 $A[q]$ 也小于等于 $A[q+1.. r]$ 中的每个元素。其中计算下标 $q$ 也是划分过程的一部分。</li>
+<li>解决：通过递归调用快速排序，对两个子数组进行排序。</li>
+<li>合并：因为子数组都是原址排序的，所以不需要合并操作。</li>
 </ul>
-<p>前三种失真函数适用于连续信源，后一种适用于离散信源。</p>
-<p>将失真函数的定义推广到序列编码情况：如果假定离散信源输出符号序列 $X = (X_1X_2 \dots X_l \dots X_L)$，其中 $L$ 长符号序列样值 $x_i = (x_{i1}x_{i2} \dots x_{il} \dots x_{iL})$，经信源编码后，输出符号序列 $Y = (Y_1Y_2 \dots Y_l \dots Y_L)$，其中 $L$ 长符号序列样值 $y_j = (y_{j1}y_{j2} \dots y_{jl} \dots y_{jL})$，则失真函数定义为：</p>
-<script type="math/tex; mode=display">
-d_L(\boldsymbol{x_i},\boldsymbol{y_j}) = \frac{1}{L}\sum_{l=1}^L{d(x_{il}, y_{jl})}</script><p>其中 $d(x_{il}, y_{jl})$ 是信源输出 $L$ 长符号样值 $x_i$ 中的第 $l$ 个符号 $x_{il}$ 时，编码输出 $L$ 长符号样值 $y_j$ 中的第 $l$ 个符号 $y_{jl}$ 的失真函数。</p>
-<h3 id="1-2-平均失真"><a href="#1-2-平均失真" class="headerlink" title="1.2 平均失真"></a>1.2 平均失真</h3><p>由于 $x_i$ 和 $y_j$ 都是随机变量，所以失真函数 $d(x_i, y_j)$ 也是随机变量，限失真时的失真值只能用它的数学期望或统计平均值。因此将失真函数的数学期望称为平均失真，记为</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\bar{D} & = \sum_{i=1}^{n}{\sum_{j=1}^{m}{p(a_ib_j)d(a_i,b_j)}} \\
-& =  \sum_{i=1}^{n}{\sum_{j=1}^{m}{p(a_i)p(b_j|a_i)d(a_i,b_j)}}\\
-\end{align}</script><h3 id="1-3-信息率失真函数-R-D"><a href="#1-3-信息率失真函数-R-D" class="headerlink" title="1.3 信息率失真函数 $R(D)$"></a>1.3 信息率失真函数 $R(D)$</h3><p>如果信源输出的信息率大于信道的传输能力，就必须对信源进行压缩，使其压缩后的信息传输率小于信道传输能力，但同时要保证压缩所引入的失真不超过预先规定的限度 $D$。</p>
-<p>因此信息压缩问题就是对于给定的信源，在满足平均失真</p>
-<script type="math/tex; mode=display">
-\bar{D} \leq D</script><p>的前提下，使编码后的信息率尽可能小。</p>
-<p>我们将有失真的信源编码器视作有干扰的信道，用分析信道传输的方法来研究限失真编码问题。所有满足上式的转移概率分布 $p_{ij}$ 构成了类假想的信道，称为 $D$ 允许信道，记为：</p>
-<script type="math/tex; mode=display">
-P_D = \{p(y|x): \bar{D} \leq D\}</script><p>对于离散无记忆信道，相应有：</p>
-<script type="math/tex; mode=display">
-P_D = \begin{cases}\{p(y_j|x_i): \bar{D} \leq D  & i = 1, 2, \dots n; j = 1, 2, \dots, m \}\end{cases}</script><p>在上述允许信道 $P_D$ 中，可以寻找一个信道 $p(Y|X)$，使给定的信源经过此信道传输后，互信息 $I(X;Y)$ 达到最小。该最小的互信息就称为<strong>信息率失真函数 $R(D)$</strong>，即：</p>
-<script type="math/tex; mode=display">
-R(D) = \min_{P_D}{I(X;Y)}</script><p>对于离散无记忆信源，$R(D)$ 函数可写成：</p>
-<script type="math/tex; mode=display">
-R(D) = \min_{p_{ij}\in P_D}{\sum_{i=1}^{n}{\sum_{j=1}^{m}{p(x_i)p(y_j|x_i) \log {\frac{p(y_j|x_i)}{p(y_j)}}}}} \\</script><h3 id="1-4-信息率失真函数的性质"><a href="#1-4-信息率失真函数的性质" class="headerlink" title="1.4 信息率失真函数的性质"></a>1.4 信息率失真函数的性质</h3><h4 id="1-R-D-函数的定义域"><a href="#1-R-D-函数的定义域" class="headerlink" title="1. $R(D)$ 函数的定义域"></a>1. $R(D)$ 函数的定义域</h4><p>由于 $D$ 是非负实数 $d(x,y)$ 的数学期望，因此 $D$ 也是非负的实数，非负实数的下界是零。对应于无失真情况，相当于无噪声信道，此时信道传输的信息量等于信源熵，即：</p>
-<script type="math/tex; mode=display">
-R(D) = R(0) = H(X)</script><p>由于 $I(X;Y)$ 是非负函数，而 $R(D)$ 是在约束条件下的 $I(X;Y)$ 的最小值，所以 $R(D)$ 也是一个非负函数，它的下限值是零。取满足 $R(D) = 0$ 的所有 $D$ 中最小的，定义为 $R(D)$ 定义域的上限 $D_{max}$ 。因此 $D \in [0, D_{max}]$。其中：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-D_{max} = &\min \sum_{j=1}^m{p_j} \sum_{i=1}^n{p_i d_{ij}}\\
-= & \min_{j = 1, 2, \dots, m}\sum_{i =1}^n{p_id_{ij}}
-\end{align}</script><hr>
-<p>例：设输入输出符号表为 $X = Y = \{0, 1\}$，输入概率分布为 $p(x) = \{\frac{1}{3}, \frac{1}{3}\}$，失真矩阵为：</p>
-<script type="math/tex; mode=display">
-\boldsymbol{d} = \begin{bmatrix}
-0      & 1      \\
-1      & 0
-\end{bmatrix}</script><p>求 $D_{max}$ </p>
-<p>解：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-D_{max} = & \min_{j = 1, 2, \dots, m}\sum_{i =1}^n{p_id_{ij}} \\
-= & \min_{j =1 , 2}(p_1d_{11}+p_2d_{21}, p_1d_{12}+p_2d_{22}) \\
-= & \frac{1}{3}
-\end{align}</script><p>此时输出符号的概率：$p(y_1) = 0$, $p(y_2) = 1$</p>
 <hr>
-<h4 id="2-R-D-函数的下凸性和连续性"><a href="#2-R-D-函数的下凸性和连续性" class="headerlink" title="2. $R(D)$ 函数的下凸性和连续性"></a>2. $R(D)$ 函数的下凸性和连续性</h4><h4 id="3-R-D-函数的单调递减性"><a href="#3-R-D-函数的单调递减性" class="headerlink" title="3. $R(D)$ 函数的单调递减性"></a>3. $R(D)$ 函数的单调递减性</h4><p>由上述三点可以得到以下结论：</p>
-<ul>
-<li>$R(D)$ 是非负的实数，即 $R(D) \geq 0$。其定义域为 $[0, D_{max}]$，其值为$[0, H(X)]$。当 $D \geq D_{max}$ 时，$R(D) = 0$。</li>
-<li>$R(D)$ 是关于 $D$ 的连续函数、下凸函数、严格递减函数</li>
-</ul>
-<p><img src="http://pp4gqi65b.bkt.clouddn.com/image/IT/4_1_2.png" alt></p>
+<p>稳定排序：在排序算法中，相同值的两个元素，在输入数组中先出现的数在输出数组中也先出现。例如：冒泡排序，插入排序，基数排序，归并排序。</p>
+<p>原址排序：基本上不需要额外辅助的空间，允许少量额外的辅助变量的排序。如选择排序，插入排序，希尔排序，快速排序，堆排序。而归并排序，计数排序，基数排序不是原址排序。</p>
+<hr>
+<p>下面的程序实现快速排序：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">QUICKSORT</span><span class="params">(A, p, r)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> p &lt; r :</span><br><span class="line">        q = PARTITION(A, p, r)</span><br><span class="line">        QUICKSORT(A, p, q<span class="number">-1</span>)</span><br><span class="line">        QUICKSORT(A, q+<span class="number">1</span>, r)</span><br></pre></td></tr></table></figure>
+<h3 id="数组的划分"><a href="#数组的划分" class="headerlink" title="数组的划分"></a>数组的划分</h3><p>算法的关键部分是 <code>PARTITION</code> 过程，它实现了对子数组的原址重排。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">PARTITION</span><span class="params">(A, p, r)</span>:</span></span><br><span class="line">    x = A[r]	<span class="comment"># 选定 x = A[r] 作为主元</span></span><br><span class="line">    i = p - <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(p, r<span class="number">-1</span>):</span><br><span class="line">        <span class="keyword">if</span> A[j] &lt;= x:</span><br><span class="line">            i = i + <span class="number">1</span></span><br><span class="line">            swap(A[i], A[j])</span><br><span class="line">     swap(A[i+<span class="number">1</span>], A[r])</span><br><span class="line">    <span class="keyword">return</span> i + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://pp4gqi65b.bkt.clouddn.com/image/algorithm/sort/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F.gif" alt></p>
+<p><code>PARTITION</code> 在子数组 $A[p..r]$ 上的时间复杂度为 $\Theta(n) $ 其中，$n = r-p+1$。</p>
+<h2 id="快速排序的性能"><a href="#快速排序的性能" class="headerlink" title="快速排序的性能"></a>快速排序的性能</h2><p>快速排序的运行时间依赖于划分是否平衡，而平衡与否又依赖于用于划分的元素。如果划分是平衡的，那么快速排序的性能与归并排序一样。如果划分是不平衡的，那么快速排序的性能就接近插入排序了。</p>
+<h3 id="最坏情况划分"><a href="#最坏情况划分" class="headerlink" title="最坏情况划分"></a>最坏情况划分</h3><p>当划分产生两个子问题分别包含了 $n-1$ 个元素和 0 个元素时，快速排序的最坏情况发生。此时算法的运行时间为：</p>
+<script type="math/tex; mode=display">
+T(n) = T(n-1)+\Theta(n)</script><p>因此可以得到，此时快速排序的时间复杂度为 $\Theta(n^2)$。</p>
+<h3 id="最好情况划分"><a href="#最好情况划分" class="headerlink" title="最好情况划分"></a>最好情况划分</h3><p>当划分产生两个子问题分别包含了 $n/2$ 个元素和 $n/2 $ 个元素时，快速排序的最好情况发生。此时算法的运行时间为：</p>
+<script type="math/tex; mode=display">
+T(n) = 2T(n/2)+\Theta(n)</script><p>因此可以得到，此时快速排序的时间复杂度为 $\Theta(n \lg n )$。</p>
+<h2 id="快速排序的随机化版本"><a href="#快速排序的随机化版本" class="headerlink" title="快速排序的随机化版本"></a>快速排序的随机化版本</h2><p>我们可以通过在算法中引入随机性，从而使算法对所有的输入都能获得较好的期望性能。</p>
+<p>随机化的快速排序对原始快速排序改动很小，只需要从将 $A[r]$ 作为主元改变为从随机一元素作为主元即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">RANDOMIZED_QUICKSORT</span><span class="params">(A, p, r)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> p &lt; r:</span><br><span class="line">        q = RANDOMIZED_PARTITION(A, p, r)</span><br><span class="line">        RANDOMIZED_QUICKSORT(A, p, q<span class="number">-1</span>)</span><br><span class="line">        RANDOMIZED_QUICKSORT(A, q+<span class="number">1</span>, r)</span><br><span class="line">        </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">RANDOMIZED_PARTITION</span><span class="params">(A, p, r)</span>:</span></span><br><span class="line">    i = RANDOM(p, r)</span><br><span class="line">    swap(A[r], A[i])</span><br><span class="line">    <span class="keyword">return</span> PARTITION(A, p, r)</span><br></pre></td></tr></table></figure>
+<h2 id="期望为线性时间的选择算法"><a href="#期望为线性时间的选择算法" class="headerlink" title="期望为线性时间的选择算法"></a>期望为线性时间的选择算法</h2><p>利用上述 <code>PARTITION/RANDOMIZED_PARTITION</code> 过程，寻找数组中第 $i$ 小的元素，时间复杂度只需 $\Theta(n) $。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">RANDOMIZED_SELECT</span><span class="params">(A, p, r, i)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> p == r:</span><br><span class="line">        <span class="keyword">return</span> A[p]</span><br><span class="line">    q = RANDOMIZED_PARTITION(A, p, r)</span><br><span class="line">    k = q - p + <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> i == k:</span><br><span class="line">        <span class="keyword">return</span> A[q]</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> i &lt; k:</span><br><span class="line">        <span class="keyword">return</span> RANDOMIZED_SELECT(A, p, q<span class="number">-1</span>, i)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> RANDOMIZED_SELECT(A, q+<span class="number">1</span>, r, i-k)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -466,6 +424,10 @@ D_{max} = & \min_{j = 1, 2, \dots, m}\sum_{i =1}^n{p_id_{ij}} \\
           
             <a href="/tags/复旦大学课程/" rel="tag"><i class="fa fa-tag"></i> 复旦大学课程</a>
           
+            <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+          
+            <a href="/tags/排序/" rel="tag"><i class="fa fa-tag"></i> 排序</a>
+          
         </div>
       
 
@@ -477,8 +439,8 @@ D_{max} = & \min_{j = 1, 2, \dots, m}\sum_{i =1}^n{p_id_{ij}} \\
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/29/Java-语言（4）/" rel="next" title="Java 语言（4）">
-                <i class="fa fa-chevron-left"></i> Java 语言（4）
+              <a href="/2019/04/01/LeetCode题解（1）：双指针法/" rel="next" title="LeetCode题解（1）：双指针法">
+                <i class="fa fa-chevron-left"></i> LeetCode题解（1）：双指针法
               </a>
             
           </div>
@@ -486,10 +448,6 @@ D_{max} = & \min_{j = 1, 2, \dots, m}\sum_{i =1}^n{p_id_{ij}} \\
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/31/第17章-摊还分析/" rel="prev" title="摊还分析">
-                摊还分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -620,7 +578,7 @@ D_{max} = & \min_{j = 1, 2, \dots, m}\sum_{i =1}^n{p_id_{ij}} \\
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#限失真信源编码"><span class="nav-number">1.</span> <span class="nav-text">限失真信源编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-平均失真和信息率失真函数"><span class="nav-number">1.1.</span> <span class="nav-text">1 平均失真和信息率失真函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-失真函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 失真函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-平均失真"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 平均失真</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-信息率失真函数-R-D"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 信息率失真函数 $R(D)$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-信息率失真函数的性质"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4 信息率失真函数的性质</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-R-D-函数的定义域"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">1. $R(D)$ 函数的定义域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-R-D-函数的下凸性和连续性"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">2. $R(D)$ 函数的下凸性和连续性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-R-D-函数的单调递减性"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">3. $R(D)$ 函数的单调递减性</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快速排序"><span class="nav-number">1.</span> <span class="nav-text">快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#快速排序的描述"><span class="nav-number">1.1.</span> <span class="nav-text">快速排序的描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的划分"><span class="nav-number">1.1.1.</span> <span class="nav-text">数组的划分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速排序的性能"><span class="nav-number">1.2.</span> <span class="nav-text">快速排序的性能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最坏情况划分"><span class="nav-number">1.2.1.</span> <span class="nav-text">最坏情况划分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最好情况划分"><span class="nav-number">1.2.2.</span> <span class="nav-text">最好情况划分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速排序的随机化版本"><span class="nav-number">1.3.</span> <span class="nav-text">快速排序的随机化版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#期望为线性时间的选择算法"><span class="nav-number">1.4.</span> <span class="nav-text">期望为线性时间的选择算法</span></a></li></ol></li></ol></div>
             
 
           </div>
