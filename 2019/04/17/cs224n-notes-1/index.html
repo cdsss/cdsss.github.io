@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="nlp,word2vec,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="自然语言处理与深度学习（1）—— CS224n 2019年冬 课程笔记  第一讲 词向量（I）关键词：Natural Language Processing, Word Vectors, Singular Value Decomposition (SVD), Skip-gram, Continuous Bag of Words (CBOW), Negative Sampling, Hierarch">
+<meta name="keywords" content="nlp,word2vec">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs224n-notes(1)">
+<meta property="og:url" content="http://yoursite.com/2019/04/17/cs224n-notes-1/index.html">
+<meta property="og:site_name" content="CDS&#39;s Blog">
+<meta property="og:description" content="自然语言处理与深度学习（1）—— CS224n 2019年冬 课程笔记  第一讲 词向量（I）关键词：Natural Language Processing, Word Vectors, Singular Value Decomposition (SVD), Skip-gram, Continuous Bag of Words (CBOW), Negative Sampling, Hierarch">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_1.png">
+<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_2.png">
+<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_7.png">
+<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_6.png">
+<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_3.png">
+<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_4.png">
+<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_5.png">
+<meta property="og:updated_time" content="2019-04-17T11:32:10.512Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cs224n-notes(1)">
+<meta name="twitter:description" content="自然语言处理与深度学习（1）—— CS224n 2019年冬 课程笔记  第一讲 词向量（I）关键词：Natural Language Processing, Word Vectors, Singular Value Decomposition (SVD), Skip-gram, Continuous Bag of Words (CBOW), Negative Sampling, Hierarch">
+<meta name="twitter:image" content="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/17/cs224n-notes-1/">
+
+
+
+
+
+  <title>cs224n-notes(1) | CDS's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/cdsss" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CDS's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">design yourself</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/17/cs224n-notes-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sss">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CDS's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">cs224n-notes(1)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-17T19:25:15+08:00">
+                2019-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cs224n/" itemprop="url" rel="index">
+                    <span itemprop="name">cs224n</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  9.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  38
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="自然语言处理与深度学习（1）"><a href="#自然语言处理与深度学习（1）" class="headerlink" title="自然语言处理与深度学习（1）"></a>自然语言处理与深度学习（1）</h1><p align="right">—— CS224n 2019年冬 课程笔记</p>
+
+<h2 id="第一讲-词向量（I）"><a href="#第一讲-词向量（I）" class="headerlink" title="第一讲 词向量（I）"></a>第一讲 词向量（I）</h2><p><strong>关键词：Natural Language Processing, Word Vectors, Singular Value Decomposition (SVD), Skip-gram, Continuous Bag of Words (CBOW), Negative Sampling, Hierarchical Softmax, Word2Vec</strong></p>
+<p>本讲首先介绍自然语言护理与自然语言处理面对的问题，之后将讨论用以将词表示为向量的相关概念，最后，我们将讨论设计词向量的常见方法。</p>
+<a id="more"></a>
+<h3 id="1-自然语言处理简介"><a href="#1-自然语言处理简介" class="headerlink" title="1 自然语言处理简介"></a>1 自然语言处理简介</h3><p>我们首先讨论什么是自然语言处理。</p>
+<h4 id="1-1-自然语言处理有何特别之处？"><a href="#1-1-自然语言处理有何特别之处？" class="headerlink" title="1.1 自然语言处理有何特别之处？"></a>1.1 自然语言处理有何特别之处？</h4><p>人类（自然）语言有什么特别之处呢？人类语言是一个用于表达含义的体系，并不由任何一种特定的规则生成。因此，自然语言处理与其他机器学习任务（如视觉任务）很不相同。</p>
+<p>大多数单词只是语言学之外实体的符号：一个词是可以映射到某一被表示的事物或想法的记号。</p>
+<p>例如，“rocket”一词指的是火箭的概念，可以引申为火箭的一个实例。但当我们使用单词或者字母表达符号时，会有一些例外，例如“Whooompaa”。除此之外，语言符号可以用不同形式编码:声音、手势、字体等，这些符号通过连续的信号传递给大脑，而大脑本身也似乎以连续的方式编码。（语言哲学和语言学已经做了大量的工作来概念化人类语言，并将词语与其指称、意义等区分开来。）</p>
+<h4 id="1-2-自然语言处理任务举例"><a href="#1-2-自然语言处理任务举例" class="headerlink" title="1.2 自然语言处理任务举例"></a>1.2 自然语言处理任务举例</h4><p>从语音处理到语义解释和语篇处理，自然语言处理的具有不同的任务层次。而自然语言处理的目标是设计一种能够让计算机“理解”自然语言从而能够执行某些任务的算法。按照任务的难度可以有下面几类：</p>
+<h5 id="简单级别"><a href="#简单级别" class="headerlink" title="简单级别"></a>简单级别</h5><ul>
+<li>拼写检查 (Spell Checking)</li>
+<li>关键词搜索 (Keyword Search)</li>
+<li>寻找同义词 (Finding Synonyms)</li>
+</ul>
+<h5 id="中等级别"><a href="#中等级别" class="headerlink" title="中等级别"></a>中等级别</h5><ul>
+<li>网站、文件等信息解析</li>
+</ul>
+<h5 id="困难级别"><a href="#困难级别" class="headerlink" title="困难级别"></a>困难级别</h5><ul>
+<li>机器翻译 (Machine Translation)</li>
+<li>语义分析 (Semantic Analysis)</li>
+<li>指代分析 (Coreference)</li>
+<li>问答系统 (Question Answering)</li>
+</ul>
+<h4 id="1-3-如何表示单词"><a href="#1-3-如何表示单词" class="headerlink" title="1.3 如何表示单词"></a>1.3 如何表示单词</h4><p>自然语言处理最基本的问题是如何将单词表示为我们模型的输入。许多早期自然语言处理任务将单词视为原子符号。而为了更好地完成大多数自然语言处理任务，我们首先需要对单词之间的相似性和差异性有一些概念。利用距离测量如Jaccard, Cosine, Euclidean，词向量（word vectors）能够将单词与单词间的相似性和差异性编码。</p>
+<h3 id="2-词向量"><a href="#2-词向量" class="headerlink" title="2 词向量"></a>2 词向量</h3><p>英文中大约有 1,300 万单词，但是它们彼此之间是完全没有联系的吗？猫科动物和猫，旅馆和汽车旅馆？我认为并不。因此我们希望能够将单词编码为某个“词空间”中的点。这一点至关重要，其中最显而易见的一个原因是可能存在某个 $N$ 维空间（$N &lt;&lt; 1,300 \text{万}$）足以编码我们所有的语义。每个维度都会编码我们表达的一些意义，例如，语义维可能会表明时态、单复数、性别等。</p>
+<p>让我们来看看我们的第一个向量，也可以说是最简单的一个，<strong>one-hot vector</strong>：</p>
+<p>我们将每一个单词表示为一个 $\mathbb{R}^{|V| \times 1}$ 维只有 1 位为 1，其余位均为 0 的向量。因此 $|V|$ 是我们词典的大小，该类型编码中的词向量表示如下：</p>
+<script type="math/tex; mode=display">
+w^{\text {aardvark}}=\left[ \begin{array}{c}{1} \\ {0} \\ {0} \\ {\vdots} \\ {0}\end{array}\right], w^{a}=\left[ \begin{array}{c}{0} \\ {1} \\ {0} \\ {\vdots} \\ {0}\end{array}\right], w^{a t}=\left[ \begin{array}{c}{0} \\ {0} \\ {1} \\ {\vdots} \\ {0}\end{array}\right], \dots ,w^{z e b r a}=\left[ \begin{array}{c}{0} \\ {0} \\ {0} \\ {\vdots} \\ {1}\end{array}\right]</script><p>我们将每个单词表示为一个完全独立的实体。但是正如我们前面讨论过的，这种词向量没有给我们任何关于相似的信息，例如：</p>
+<script type="math/tex; mode=display">
+\left(w^{h o t e l}\right)^{T} w^{m o t e l}=\left(w^{h o t e l}\right)^{T} w^{c a t}=0</script><p>因此也许我们可以试着把这个空间的大小从 $R | V |$ 缩小到更小的维度从而找到一个子空间来编码单词之间的关系。</p>
+<h3 id="3-奇异值分解方法（SVD-Based-Model）"><a href="#3-奇异值分解方法（SVD-Based-Model）" class="headerlink" title="3 奇异值分解方法（SVD Based Model）"></a>3 奇异值分解方法（SVD Based Model）</h3><p>对于这一类寻找词嵌入（word embeddings，也称作词向量的方法），我们首先在一个大数据集上遍历，以某种矩阵 $X$ 的形式计算词汇同时出现的次数，之后对矩阵 $X$ 进行奇异值分解得到 $USV^T$。然后我们就可以使用 $U$ 的每一行作为所有单词的词嵌入。接下来让我们讨论矩阵 $X$ 的一些选择。</p>
+<h4 id="3-0-奇异值分解（补充）"><a href="#3-0-奇异值分解（补充）" class="headerlink" title="3.0 奇异值分解（补充）"></a>3.0 奇异值分解（<a href="https://www.cnblogs.com/pinard/p/6251584.html" target="_blank" rel="noopener">补充</a>）</h4><p>对奇异值分解较熟悉或者暂且不想探究过多可暂时跳过本小节。</p>
+<h5 id="1-特征值与特征向量"><a href="#1-特征值与特征向量" class="headerlink" title="1 特征值与特征向量"></a>1 特征值与特征向量</h5><p>特征值与特征向量定义如下：</p>
+<script type="math/tex; mode=display">
+A x=\lambda x</script><p>其中，$A$ 是一个 $n \times n$ 的矩阵，$x$ 是一个 $n$ 维向量，则我们称满足上式的 $\lambda$ 是矩阵 $A$ 的一个特征值，而 $x$ 是矩阵 $A$ 的特征值 $\lambda$ 所对应的特征向量。</p>
+<p>求出特征值和特征向量之后，我们可以对矩阵 $A$ 进行特征分解。如果我们求出了矩阵 $A$ 的 $n$ 个特征值 $\lambda_{1} \leq \lambda_{2} \leq \ldots \leq \lambda_{n}$，以及这 $n$ 个特征值所对应的特征向量 $\left\{\vec{u_{1}}, \vec{u_{2}}, \dots \vec{u_{n}}\right\}$，如果这 $n$ 个特征向量线性无关，那么矩阵 $A$ 就可以用下式的特征分解表示：</p>
+<script type="math/tex; mode=display">
+A = USU^{-1}</script><p>其中，$U$ 是这 $n$ 个特征向量所张成的 $n \times n$ 维矩阵，而 $S$ 为这 $n$ 个特征值为主对角线的 $n \times n $ 维矩阵。</p>
+<script type="math/tex; mode=display">
+\begin{align}A U & =  A\left(\vec{u}_{1}, \vec{u}_{2}, \ldots, \vec{u}_{n}\right) \\
+& = \left(\lambda_{1} \vec{u}_{1}, \lambda_{2} \vec{u}_{2}, \dots, \lambda_{n} \vec{u}_{n}\right) \\
+& = \left(\vec{u}_{1}, \vec{u}_{2}, \ldots, \vec{u}_{n}\right) \left[ \begin{array}{ccc}{\lambda_{1}} & {\cdots} & {0} \\ {\vdots} & {\ddots} & {\vdots} \\ {0} & {\cdots} & {\lambda_{n}}\end{array}\right] \\
+& \Rightarrow A U=U S \Rightarrow A=U S U^{-1}
+\end{align}</script><p>一般我们会将 $U$ 的这 $n$ 个特征向量标准化，即满足：$ \left|\vec{u_{i}}\right|_{2}=1$，或者说 $\vec{u_{i}}^{T} \vec{u_{i}}=1$ 。此时 $U$ 的 $n$ 个特征向量为标准正交基，满足 $U^{T} U=I$，即 $U^{T}=U^{-1}$。这样我们的特征分解表达式可以写成：</p>
+<script type="math/tex; mode=display">
+A = USU^{T}</script><p>注意到要进行特征分解，矩阵 $A$ 必须为方阵。那么如果 $A$ 不是方阵，该如何进行分解呢？这就要用到 SVD —— 奇异值分解。</p>
+<h5 id="2-奇异值分解"><a href="#2-奇异值分解" class="headerlink" title="2 奇异值分解"></a>2 奇异值分解</h5><p>SVD 也是对矩阵进行分解，但是和特征分解不同，SVD 并不要求要分解的矩阵为方阵。假设我们的矩阵 $A$ 为一个 $m \times n$ 的矩阵，那么我们定义矩阵 $A$ 的 SVD 为：</p>
+<script type="math/tex; mode=display">
+A=U S V^{T}</script><p>其中，$U$ 是一个 $m \times m$ 的矩阵，$S$ 是一个 $m \times n$ 的矩阵，除了主对角线上的元素以外全为 0 ，主对角线上的每个元素都称为奇异值，$V$ 是一个 $n \times n $ 的矩阵。$U$ 和 $V$ 满足：$U^{T} U=I, V^{T} V=I$。</p>
+<h4 id="3-1-词-文档矩阵（Word-Document-Matrix）"><a href="#3-1-词-文档矩阵（Word-Document-Matrix）" class="headerlink" title="3.1 词-文档矩阵（Word-Document Matrix）"></a>3.1 词-文档矩阵（Word-Document Matrix）</h4><p>作为我们的第一次尝试，我们可以假设，相关的单词经常出现在相同的文档中。例如，”banks”, “bonds”, “stocks”, “money”等很可能一起出现，但是 “banks”, “octopus” (章鱼), “banana”, “hockey” 很大可能不会同时出现。我们利用这一事实可以构造词-文档矩阵 $X$：</p>
+<p>循环十数亿的文章，单词 $i$ 每次出现在文章 $j$ 时，我们将 $X_{ij}$ 加 1 。</p>
+<p>显然这是一个很大的矩阵 ($\mathbb{R}^{|V| \times M}$)，并且该矩阵与文章的数量 $M$ 成比例。因此，我们可以找到更好的方法。</p>
+<h4 id="3-2-窗口共现矩阵（Window-based-Co-occurrence-Matrix）"><a href="#3-2-窗口共现矩阵（Window-based-Co-occurrence-Matrix）" class="headerlink" title="3.2 窗口共现矩阵（Window based Co-occurrence Matrix）"></a>3.2 窗口共现矩阵（Window based Co-occurrence Matrix）</h4><p>在此方法中，我们计算每个单词在特定大小的窗口中出现的次数。以下面为例，假设语料库只包含三个句子，窗口大小为1：</p>
+<ol>
+<li>I enjoy flying.</li>
+<li>I like NLP</li>
+<li>I like deep learning</li>
+</ol>
+<p>那么我们得到的矩阵为：</p>
+<script type="math/tex; mode=display">
+X=\begin{array}{@{}@{}@{}@{}@{}c@{}@{}}
+    &I&like&enjoy&deep&learning&NLP&flying&.   \\
+    \left.\begin{array}
+    {c} I\\like\\enjoy\\deep\\learning\\NLP\\flying\\. \end{array}\right[
+                    & \begin{array}{c} 0 \\ 2 \\ 1\\ 0 \\0 \\0 \\0 \\0 \end{array}
+                    & \begin{array}{c} 2 \\ 0 \\ 0 \\ 1 \\0 \\ 1 \\ 0\\ 0\end{array}
+                         & \begin{array}{c} 1 \\ 0 \\ 0 \\ 0 \\0 \\ 0 \\ 1\\ 0\end{array}
+                         & \begin{array}{c} 0 \\ 1 \\ 0 \\ 0 \\1 \\ 0 \\ 0\\ 0\end{array}
+                          & \begin{array}{c} 0 \\ 0 \\ 0 \\ 1 \\0 \\ 0 \\ 0\\ 1\end{array}
+                          & \begin{array}{c} 0 \\ 1 \\ 0 \\ 0 \\0 \\ 0 \\ 0\\ 1\end{array}
+                          & \begin{array}{c} 0 \\ 0 \\ 1 \\ 0 \\0 \\ 0 \\ 0\\ 1\end{array}
+                          & \begin{array}{c} 0 \\ 0 \\ 0 \\ 0 \\1 \\ 1 \\ 1\\ 0\end{array}
+                          & \left.\begin{array}{c} \\ \\ \\  \\ \\ \\ \\ \\\end{array}\right]
+  \end{array}</script><h4 id="3-3-对共现矩阵进行奇异值分解"><a href="#3-3-对共现矩阵进行奇异值分解" class="headerlink" title="3.3 对共现矩阵进行奇异值分解"></a>3.3 对共现矩阵进行奇异值分解</h4><p>我们在矩阵 $X$ 上执行 SVD 得到 $USV^T$ ，选择 $U$ 的前 $k$ 列作为 $k$ 维词空间（降维）。</p>
+<p><img src="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_1.png" alt></p>
+<p><img src="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_2.png" alt></p>
+<p>其中 $k$ 的选择方式如下：</p>
+<script type="math/tex; mode=display">
+\frac{\sum_{i=1}^{k} \sigma_{i}}{\sum_{i=1}^{|V|} \sigma_{i}}</script><p>满足某一设定的值。</p>
+<p>之后，我们将矩阵 $U_{1 :|V|, 1: k}$ 作为我们的词嵌入矩阵。这将给每一个单词一个 $k$ 维的词向量表示。</p>
+<p>这两种方法都给我们提供了足够的词向量来编码语义和句法信息（如词性分析），但却存在一些其他问题:</p>
+<ul>
+<li>矩阵维度经常变动（新单词频繁加入时，语料库的大小会改变）。</li>
+<li>矩阵非常稀疏（大多数单词不会同时出现）。</li>
+<li>矩阵通常维度很高（$\approx 10^{6} \times 10^{6}$）。</li>
+<li>训练成本高（执行 SVD）。</li>
+<li>需要对矩阵 $X$ 进行一些处理来避免单词频率差异过大。</li>
+</ul>
+<p>存在的一些解决方案有：</p>
+<ul>
+<li>忽视一些功能性词，例如：”he”, “the”, “has” 等</li>
+<li>应用一个不规则窗口 —— 根据文档中单词之间的距离来计算共现次数</li>
+<li>使用Pearson相关系数并将原始计数设置为负数</li>
+</ul>
+<p>但正如我们将在下一节中看到的，基于迭代的方法以一种优雅得多的方式解决了其中的许多问题。</p>
+<h3 id="4-基于迭代的方法（Iteration-Based-Methods）——-Word2vec"><a href="#4-基于迭代的方法（Iteration-Based-Methods）——-Word2vec" class="headerlink" title="4 基于迭代的方法（Iteration Based Methods）—— Word2vec"></a>4 基于迭代的方法（Iteration Based Methods）—— Word2vec</h3><p>让我们尝试一种新的方法。相比于计算存储一个庞大数据集（可能有数十亿个句子）的整体信息，我们可以尝试创建一个模型，它能够一次学习一个迭代，并最终能够根据给定上下文得到一个单词的概率。</p>
+<p>这种方法的思想是设计一个参数是词向量的模型，之后，按照一定的目标训练该模型。在每次迭代中，我们运行模型，评估错误，并通过惩罚导致错误的模型参数进行更新。这样我们就学习到了词向量。这个思想被称为反向传播（back-propagating），最早可以追溯到 1986 年。模型和任务越简单，训练速度越快。</p>
+<p>一些尝试已经被测试过。 <a href="#1">[Collobert et al., 2011]</a> 设计了一些第一步是将词转化为向量的自然语言处理模型。对于每种特定的任务，例如命名实体识别（Named Entity Recognition），词性标注（Part-of-Speech tagging）等，他们除了训练模型的参数同时也训练词向量，显著提升了模型效果。</p>
+<p>本节中，我们将会讲述一种更加简单，先进可行的方法 —— word2vec <a href="#2"> [Mikolov et al., 2013]</a> 。Word2vec 是一个包含如下内容的包：</p>
+<ul>
+<li>两个算法：continuous bag-of-words (CBOW) 和 skip-gram。CBOW 根据一系列词向量中的上下文来预测中心词。而 Skip-gram 刚好相反，根据一个中心词来预测上下文单词的分布。</li>
+<li>两种训练方式：negative sampling 和 hierarchical softmax。</li>
+</ul>
+<h4 id="4-1-语言模型（Unigrams-Bigrams-等）"><a href="#4-1-语言模型（Unigrams-Bigrams-等）" class="headerlink" title="4.1 语言模型（Unigrams, Bigrams 等）"></a>4.1 语言模型（Unigrams, Bigrams 等）</h4><p>首先，我们需要创建一个为一系列单词分配概率的模型。以下面句子为例：</p>
+<p align="center">"The cat jumped over the puddle."</p>
+
+<p>一个好的语言模型会给这个句子一个很高的概率，因为不管是在语义还是语法上都是一个完整且有意义的句子。相似的，句子 “stock boil fish is toy” 应该有一个较低的概率，因为这句话没有意义。数学上我们可以计算出包含 $n$ 个单词的句子的概率：</p>
+<script type="math/tex; mode=display">
+P\left(w_{1}, w_{2}, \cdots, w_{n}\right)</script><p>我们可以采用一元语言模型（Unigram model）方法，假设单词的出现是完全独立的，那么：</p>
+<script type="math/tex; mode=display">
+P\left(w_{1}, w_{2}, \cdots, w_{n}\right)=\prod_{i=1}^{n} P\left(w_{i}\right)</script><p>然而，我们知道这有点可笑，因为下一个单词高度依赖于前一个单词序列。前面举的第二个例子可能得分很高。所以，我们尝试使句子出现的概率取决于每个单词和其相邻单词组成的单词对的概率。我们将这种方法称为二元语言模型（Bigrams）并表示为：</p>
+<script type="math/tex; mode=display">
+P\left(w_{1}, w_{2}, \cdots, w_{n}\right)=\prod_{i=2}^{n} P\left(w_{i} | w_{i-1}\right)</script><p>这同样有些天真，因为我们只关心相邻的词对，而不是整个句子，但正如我们将看到的，这种表示方式让我们前进了一步。在一个上下文大小为 1 的词-词矩阵中，我们基本可以获得词对的概率，但是同样地，在一个大型数据集上，这需要大量的计算和存储空间。</p>
+<h4 id="4-2-连续词袋模型（CBOW）"><a href="#4-2-连续词袋模型（CBOW）" class="headerlink" title="4.2 连续词袋模型（CBOW）"></a>4.2 连续词袋模型（CBOW）</h4><p>一种尝试是将 {“The”、“cat”、“over”、“The”、“puddle”} 作为上下文，并从这些单词中预测或生成中心单词 “jump”。我们称这种类型的模型为：连续词袋模型（CBOW）。</p>
+<p>让我们更详细地讨论上述 CBOW 模型。</p>
+<p>既然我们已经理解了如何计算词序列概率，让我们研究一些能够学习这些概率的模型。首先，我们设置我们的已知参数 —— 一个由 one-hot 向量矩阵表示的句子。我们将会用 $x^{(c)}$ 表示输入或者其上下文的 one-hot 向量。输出用 $y$ 表示——即中心词的 one-hot 向量。下面，让我们定义模型中的未知量：</p>
+<p>我们建立两个矩阵：$\mathcal{V} \in \mathbb{R}^{n \times|V|}$ 和 $\mathcal{U} \in \mathbb{R}^{|V| \times n}$ 。其中，$n$ 是一个任意的量，它定义了我们词嵌入空间的大小。$\mathcal{V}$ 是输入词矩阵，它的第 $i$ 列表示了输入词 $w_i$ 的嵌入向量（大小为 $n \times 1$），我们可以将其记为 $v_i$。类似地，$\mathcal{U}$ 表示输出词矩阵。 $\mathcal{U} $ 的第 $j$ 列表示词 $w_j$ 的嵌入向量（大小为 $n \times 1 $），我们将其记为 $u_j$，它是我们模型的一个输出。所以事实上，我们学习了每个单词 $w_i$ 的两种表示：$v_i$ 和 $u_i$。</p>
+<p>模型具体分为如下几步：</p>
+<ol>
+<li><p>我们为输入的上下文（半径为 $m$）生成对应的 one-hot 向量。</p>
+<p>$\left(x^{(c-m)}, \ldots, x^{(c-1)}, x^{(c+1)}, \ldots, x^{(c+m)} \in \mathbb{R}^{|V|}\right)$</p>
+</li>
+<li><p>得到上下文的嵌入词向量。</p>
+<p>$( v_{c-m} = \mathcal{V} x^{(c-m)}, v_{c-m+1}=\mathcal{V} x^{(c-m+1)}, \ldots, v_{c+m}=\mathcal{V} x^{(c+m)} \in \mathbb{R}^{n} )$</p>
+</li>
+<li><p>将上下文的嵌入词向量取均值。</p>
+<p>$\hat{v}=\frac{v_{c-m}+v_{c—n t+1}+\ldots+v_{c+m}}{2 m} \in \mathbb{R}^{n}$</p>
+</li>
+<li><p>生成打分向量。向量点积越高，表示单词越相似。</p>
+<p>$z=\mathcal{U} \hat{v} \in \mathbb{R}^{|V|}$</p>
+</li>
+<li><p>将分数转换为概率（利用 softmax）。</p>
+<p>$\hat{y}=\operatorname{softmax}(z) \in \mathbb{R}^{|V|}$</p>
+</li>
+<li><p>我们希望得到的概率 $\hat{y} \in \mathbb{R}^{|V|}$ 与实际概率 $y \in \mathbb{R}^{|V|}$ 匹配，而实际概率正是实际单词的 one-hot 向量。</p>
+</li>
+</ol>
+<blockquote>
+<p>补充：</p>
+<p>softmax 操作将一个向量转化为了另一个向量，该向量的第 $i$ 个元素为：</p>
+<script type="math/tex; mode=display">
+\frac{e^{\hat{y_i}}}{\sum_{k=1}^{|V|} e^{\hat{y}_{k}}}</script><p>这样达到了两个效果：</p>
+<ul>
+<li>取指数表示一定为正</li>
+<li>正则化</li>
+</ul>
+</blockquote>
+<p>我们已经了解了如果我们知道矩阵 $\mathcal{V}$ 和 $\mathcal{U}$ ，那么我们该如何学习这两个矩阵呢？首先，我们需要一个目标函数。通常，当我们试图从真实概率中学习概率时，我们会借助信息论来测量两个分布之间的距离。这里，我们选择了一种常见的距离/损失指标：交叉熵 $H(\hat{y}, y)$。</p>
+<p>从损失函数的公式我们可以直观得到离散情况下使用交叉熵来表示：</p>
+<script type="math/tex; mode=display">
+H(\hat{y}, y)=-\sum_{j=1}^{|V|} y_{j} \log \left(\hat{y}_{j}\right)</script><p>对于我们现在的问题， $y$ 是一个 one-hot 向量，因此我们的损失函数可以简化为：</p>
+<script type="math/tex; mode=display">
+H(\hat{y}, y)=-y_{i} \log \left(\hat{y}_{i}\right)</script><p>在上式中，$i$ 为正确答案的 one-hot 向量为值为 1 的下标。假如我们的预测是完美的，$\hat{y}_{c}=1$。我们可以计算出：$H(\hat{y}, y)= -1 \log (1)=0$。因此，对于完美预测时，我们没有任何损失或者惩罚。现在让我们假设我们的预测效果很差，$\hat{y}_{c}= 0.01$，那么我们可以计算出：$H(\hat{y}, y)=-1 \log (0.01) \approx 4.605$。通过上述过程，我们不难看出交叉熵能够为我们测量距离提供一种很好的指标。这样我们可以建立起我们的优化目标为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \text { minimize } J &=-\log P\left(w_{c} | w_{c-m}, \ldots, w_{c-1}, w_{c+1}, \ldots, w_{c+m}\right) \\ &=-\log P\left(u_{c} | \hat{v}\right) \\ &=-\log \frac{\exp \left(u_{c}^{T} \hat{v}\right)}{\sum_{j=1}^{|V|} \exp \left(u_{j}^{T} \hat{v}\right)} \\ &=-u_{c}^{T} \hat{v}+\log \sum_{j=1}^{|V|} \exp \left(u_{j}^{T} \hat{v}\right) \end{aligned}</script><p>我们使用随机梯度下降来更新所有相关的词向量：$u_c$ 和 $v_j$ 即可。</p>
+<h4 id="4-3-Skip-Gram-模型"><a href="#4-3-Skip-Gram-模型" class="headerlink" title="4.3 Skip-Gram 模型"></a>4.3 Skip-Gram 模型</h4><p>另外一种尝试是创建一个模型：给定一个中心词 “jumped”，预测或生成其周围的单词：”The”, “cat”, “over”, “the”, “puddle”。这里我们称 “jumped” 为上下文。</p>
+<p>接下来我们讨论 Skip-Gram 模型。模型的建立过程与 CBOW 很相似，只是 $x$ 和 $y$ 交换了位置。我们的输入 one-hot 向量将会记为：$x$。输出词向量表示为：$y^{j}$。并且，与 CBOW 相同，我们定义矩阵 $\mathcal{V}$ 和 $\mathcal{U}$ 。</p>
+<p>同样地，模型的工作流程分为 5 步：</p>
+<ol>
+<li><p>生成输入中心词的 one-hot 向量。</p>
+<p>$x \in \mathbb{R}^{|V|}$</p>
+</li>
+<li><p>得到中心词的嵌入向量。</p>
+<p>$v_{c}=\mathcal{V} x \in \mathbb{R}^{n} $</p>
+</li>
+<li><p>得到分数向量。</p>
+<p>$z=\mathcal{U} v_{c}$</p>
+</li>
+<li><p>将分数向量转换为概率，$\hat{y}=\operatorname{softmax}(z)$。注意 $\hat{y}_{c-m}, \ldots, \hat{y}_{c-1}, \hat{y}_{c+1}, \dots, \hat{y}_{c+m}$ 为每个上下文的概率。</p>
+</li>
+<li><p>我们期望我们生成的概率向量与真实概率向量匹配，这些概率也正是真实输出的 one-hot 向量。</p>
+<p>$y^{(c-m)}, \ldots, y^{(c-1)}, y^{(c+1)}, \ldots, y^{(c+m)}$</p>
+</li>
+</ol>
+<p>类似于 CBOW，我们需要生成模型的目标函数来评估模型。这里的一个关键区别是，我们调用了一个 Naive Bayes 假设来分解概率。如果你以前没有见过这种情况，那么简单地说，这是一个条件独立性假设。换句话说，所有的输出词可以被视为完全独立的。</p>
+<blockquote>
+<p>补充：和 CBOW 模型一样，不考虑词顺序及词的位置对结果的影响。</p>
+</blockquote>
+<script type="math/tex; mode=display">
+\begin{aligned} \text { minimize } J &=-\log P\left(w_{c-m}, \ldots, w_{c-1}, w_{c+1}, \ldots, w_{c+m} | w_{c}\right) \\ &=-\log \prod_{j=0, j \neq m}^{2 m} P\left(w_{c-m+j} | w_{c}\right) \\ &=-\log \prod_{j=0, j \neq m}^{2 m} P\left(u_{c-m+j} | v_{c}\right) \\ &=-\log \prod_{j=0, j \neq m}^{2 m} \frac{\exp \left(u_{c-m+j}^{T} v_{c}\right)}{\sum_{k=1}^{|V|} \exp \left(u_{k}^{T} v_{c}\right)} \\ &=-\sum_{j=0, j \neq m}^{2 m} u_{c-m+j}^{T} v_{c}+2 m \log \sum_{k=1}^{|V|} \exp \left(u_{k}^{T} v_{c}\right) \end{aligned}</script><p>同样利用梯度下降的方法可以对参数进行更新。</p>
+<h4 id="4-4-负采样（Negative-Sampling）"><a href="#4-4-负采样（Negative-Sampling）" class="headerlink" title="4.4 负采样（Negative Sampling）"></a>4.4 负采样（Negative Sampling）</h4><blockquote>
+<p>推荐先看补充材料 2</p>
+</blockquote>
+<p>让我们回过头再看一次上面的目标函数。注意在整个 $|V|$ 上的求和计算是十分昂贵的。我们所做的任何更新或目标函数的评估都将花费 $O(|V|)$ 时间。一个简单的想法是我们可以采用近似的手段。</p>
+<p>训练的每一步，我们可以通过只对一些负样本采样来代替循环整个词典。我们从一个噪声分布（$p_n(w)$）中抽样，该分布的概率匹配词典频率的顺序。要将问题的表达式扩展到负采样，我们需要做的就是更新</p>
+<ul>
+<li>目标函数</li>
+<li>梯度</li>
+<li>更新规则。</li>
+</ul>
+<p>虽然负抽样是基于 Skip-Gram 模型，但它实际上是在优化一个不同的目标。考虑一个单词，上下文对 $(w, c)​$。这一单词-上下文对来自于训练数据吗？我们用 $P(D=1 | w, c)​$ 表示 $(w,c)​$ 来自语料库的概率。同样的，用 $P(D=0 | w, c)​$ 表示其未来自语料库的概率。首先，我们可以通过让 $P(D=1 | w, c)​$ 经过 sigmoid 函数：</p>
+<script type="math/tex; mode=display">
+P(D=1 | w, c, \theta)=\sigma\left(v_{c}^{T} v_{w}\right)=\frac{1}{1+e^{\left(-v_{c}^{T} v_{w}\right)}}</script><blockquote>
+<p><img src="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_7.png" alt></p>
+</blockquote>
+<p>这样我们构建了一个新的目标函数，它试图最大化一个单词和上下文在语料库数据中出现的概率(如果它确实存在的话)，或者最大化一个单词和上下文不在语料库数据中出现的概率(如果它确实不存在的话)。我们利用极大似然法来得到这两个概率（其中 $\theta$ 为我们模型的参数，在我们的例子中，即为 $\mathcal{V}$ 和 $\mathcal{U}$ ）。</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \theta &=\underset{\theta}{\operatorname{argmax}} \prod_{(w, c) \in D} P(D=1 | w, c, \theta) \prod_{(w, c) \in \tilde{D}} P(D=0 | w, c, \theta) \\ &=\underset{\theta}
+{\operatorname{argmax}} \prod_{(w, c) \in D} P(D=1 | w, c, \theta) \prod_{(w, c) \in \tilde{D}}(1-P(D=1 | w, c, \theta)) \\
+&=\underset{\theta}{\operatorname{argmax}} \sum_{(w, c) \in D} \log P(D=1 | w, c, \theta)+\sum_{(w, c) \in \tilde{D}} \log (1-P(D=1 | w, c, \theta)) \\ 
+&=\underset{\theta}{\operatorname{argmax}} \sum_{(w, c) \in D} \log \frac{1}{1+\exp \left(-u_{w}^{T} v_{c}\right)}+\sum_{(w, c) \in \tilde{D}} \log \left(1-\frac{1}{1+\exp \left(-u_{w}^{T} v_{c}\right)}\right) \\
+&=\underset{\theta}{\operatorname{argmax}} \sum_{(w, c) \in D} \log \frac{1}{1+\exp \left(-u_{w}^{T} v_{c}\right)}+\sum_{(w, c) \in \tilde{D}} \log \left(\frac{1}{1+\exp \left(u_{w}^{T} v_{c}\right)}\right)
+\end{aligned}</script><p>注意，最大化可能性与最小化负对数可能性是一样的:</p>
+<script type="math/tex; mode=display">
+J=-\sum_{(w, c) \in D} \log \frac{1}{1+\exp \left(-u_{w}^{T} v_{c}\right)}-\sum_{(w, c) \in \tilde{D}} \log \left(\frac{1}{1+\exp \left(u_{w}^{T} v_{c}\right)}\right)</script><p>注意 $\tilde{D}$ 是一个“错误”或者“负”语料库。我们可能会含有：”stock boil fish is toy” 这样的句子在其中。</p>
+<p>不自然的句子出现的概率应该很低，我们可以通过在词典中随机采样生成这样的负样本。</p>
+<p>对于 skip-gram 模型，新目标函数应该为：</p>
+<script type="math/tex; mode=display">
+-\log \sigma\left(u_{c-m+j}^{T} \cdot v_{c}\right)-\sum_{k=1}^{K} \log \sigma\left(-\tilde{u}_{k}^{T} \cdot v_{c}\right)</script><p>对于 CBOW 模型，新目标函数应该为：</p>
+<script type="math/tex; mode=display">
+-\log \sigma\left(u_{c}^{T} \cdot \hat{v}\right)-\sum_{k=1}^{K} \log \sigma\left(-\tilde{u}_{k}^{T} \cdot \hat{v}\right)</script><p>在上式中，$\left\{\tilde{u}_{k} | k=1 \ldots K\right\}$ 是从 $P_n(w)$ 中采样的结果。接下来让我们讨论 $P_n(w)$ 应该是什么。尽管关于最佳近似有很多讨论，但是效果最好的应该是 Unigram 模型提出的 3/4 幂次。原因可以从下面来看出：</p>
+<ul>
+<li>$0.9^{3 / 4}=0.92$</li>
+<li>$0.09^{3 / 4}=0.16$</li>
+<li>$0.01^{3 / 4}=0.032$</li>
+</ul>
+<p>这样可以使得低频词出现的概率提升。</p>
+<h4 id="4-5-分层-softmax"><a href="#4-5-分层-softmax" class="headerlink" title="4.5 分层 softmax"></a>4.5 分层 softmax</h4><p>作者同样指出，分层 softmax 是比普通的 softmax 更有效的一种手段。通常，分层 softmax 在低频词上效果更好，而负采样则在高频词和低维度时效果更高。</p>
+<p>分层 softmax 用二叉树表示词典中的所有词。每个叶子节点代表一个单词，并且存在从根节点到每个叶子节点的唯一路径。在这个模型中，没有词的输出表示，相反，每个内部节点都对应了模型需要学习的向量。</p>
+<p>在这个模型里，给定向量 $w_i​$ 得到单词 $w​$ 的概率 $P(w|w_i)​$ 等于从根节点到 $w​$ 对应的叶子节点随机游走的概率。这种计算方式的主要优势在于降低时间复杂度。</p>
+<blockquote>
+<p>分层 Softmax使用二叉树，每个叶子表示一个单词。单词作为输出单词的概率定义为单词从根到叶的随机游走的概率。计算的复杂度从 $O(|V| )​$ 变为了 $O(\log |V|)​$。</p>
+<p><img src="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_6.png" alt></p>
+</blockquote>
+<p>让我们引入一些符号：</p>
+<ul>
+<li>$L(w)​$：从 root 到 叶子节点 $w​$ 路径上的节点数</li>
+<li>$n(w, i)$：该路径上的第 $i$ 个节点</li>
+<li>$v_{n(w,i)}$：第 $i$ 个节点关联的向量</li>
+</ul>
+<p>因此，$n(w,1)​$ 表示根节点，$n(w,L(w))​$ 表示 $w​$ 的父结点。对于每一个中间节点 $n​$，我们记其左孩子为 $ch(n)​$。那么，我们可以计算概率为：</p>
+<script type="math/tex; mode=display">
+P\left(w | w_{i}\right)=\prod_{j=1}^{L(w)-1} \sigma\left([n(w, j+1)=\operatorname{ch}(n(w, j))] \cdot v_{n(w, j)}^{T} v_{w_{i}}\right)</script><p>其中，</p>
+<script type="math/tex; mode=display">
+[x]=\left\{\begin{array}{l}{1 \text { if } x \text { is true }} \\ {-1 \text { otherwise }}\end{array}\right.</script><p>并且 $\sigma(\cdot)$ 为 sigmoid function。</p>
+<p>接下来，让我们更深入地观察一下这个公式：</p>
+<p>首先，我们计算从根节点到叶子节点 $w$ 的路径每个中间节点的点积。由于我们假设所有 $ch(n)$ 均表示左孩子，那么当向左走的时候 $[n(w, j+1)=\operatorname{ch}(n(w, j))]$ 返回 1，反之返回 -1。</p>
+<p>此外，$[n(w, j+1)=\operatorname{ch}(n(w, j))]$ 该式也提供了正则化。在节点 $n$，如果我们将去往左右节点的概率相加，那么对于任何的 $v_{n}^{T} v_{w_{i}}$，</p>
+<script type="math/tex; mode=display">
+\sigma\left(v_{n}^{T} v_{w_{i}}\right)+\sigma\left(-v_{n}^{T} v_{w_{i}}\right)=1</script><p>同时，就像普通的 softmax 一样，这样的正则化也保证了 $\sum_{w=1}^{|V|} P\left(w | w_{i}\right)=1$。</p>
+<p>最后，我们通过点积比较输入向量和每个中间节点的相似度。我们来看下面一个例子，以上图中 $w_2$ 为例，从根节点到达 $w_2$ 必须经过两次左孩子和一次右孩子，那么：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} P\left(w_{2} | w_{i}\right) &=p\left(n\left(w_{2}, 1\right), \text { left }\right) \cdot p\left(n\left(w_{2}, 2\right), \text { left }\right) \cdot p\left(n\left(w_{2}, 3\right), \text { right) }\right.\\ &=\sigma\left(v_{n\left(w_{2}, 1\right)}^{T} v_{w_{i}}\right) \cdot \sigma\left(v_{n\left(w_{2}, 2\right)}^{T} v_{w_{i}}\right) \cdot \sigma\left(-v_{n\left(w_{2}, 3\right)}^{T} v_{w_{i}}\right) \end{aligned}</script><p>为了训练这个模型，我们的目标仍然是最小化 $-\log P\left(w | w_{i}\right)$。但是相比于更新每个词的输出向量，我们更新二叉树中在根节点到叶子节点路径上的每个向量值。</p>
+<p>该方法的速度由二叉树的构造方法和赋予叶节点单词的方式决定。作者利用二叉霍夫曼树，这样可以分配高频词更短的路径。</p>
+<h3 id="补充材料"><a href="#补充材料" class="headerlink" title="补充材料"></a>补充材料</h3><h4 id="1-CBOW-模型"><a href="#1-CBOW-模型" class="headerlink" title="1. CBOW 模型"></a>1. CBOW 模型</h4><p>参考 <a href="https://blog.csdn.net/u012762419/article/details/79366052" target="_blank" rel="noopener">word2vec中的CBOW模型</a>。</p>
+<h5 id="模型简介"><a href="#模型简介" class="headerlink" title="模型简介"></a>模型简介</h5><p>CBOW 模型，中文译为“连续词袋模型”，完成的任务是给定中心词 $w_i​$ 的邻域半径内的单词，例如邻域半径为 2 时为：$w_{i-2}​$,  $w_{i-1}​$,  $w_{i+1}​$,  $w_{i+2}​$，预测输出单词为该中心词 $w_i​$ 的概率，由于没有考虑到词之间的顺序，所以称为词袋模型。模型结构如下：</p>
+<p><img src="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_3.png" alt></p>
+<h5 id="模型过程"><a href="#模型过程" class="headerlink" title="模型过程"></a>模型过程</h5><p>在上述结构示意图中，输入的单词实际上是一个 one-hot 向量。PROJECTION 层通过查表得到：首先初始化一个词向量矩阵 $W_{in}$，$W_{in}$ 是一个二维矩阵，行数等于构建的词典中的单词数目，列数是一个超参数，人为设定，一般为 100。那么其大小为 $|V| \times d$，其中 $|V|$ 是词典的大小，$d$ 是词向量的维度，$v$ 向量则是 $W_{in}$ 的一行，那么 look-up 过程操作如下： </p>
+<script type="math/tex; mode=display">
+w_{i}^{T} W_{i n}=v_{i}</script><p>这样我们就得到了 $w_i$ 对应的词向量。同理我们可以得到 $v_{i-2}$,  $v_{i-1}$,  $v_{i+1}$,  $v_{i+2}$。</p>
+<p>之后进行求和平均：</p>
+<script type="math/tex; mode=display">
+v_{\text {PROJECTION}}=\frac{v_{i-2}+v_{i-1}+v_{i+1}+v_{i+2}}{4}</script><p>通过该公式可以看出，四个词向量对于生成中心词的贡献是相同的，没有考虑到单词的顺序问题。</p>
+<p>我们在输出层需要计算的是由 $w_{i-2}$,  $w_{i-1}$,  $w_{i+1}$,  $w_{i+2}$ 生成 $w_i$ 的概率，即：</p>
+<script type="math/tex; mode=display">
+P\left(w_{i} | w_{i-2}, w_{i-1}, w_{i+1}, w_{i+2}\right)</script><p>经过上述的过程后， $w_{i-2}$,  $w_{i-1}$,  $w_{i+1}$,  $w_{i+2}$ 被综合表示为了 $v_{\text {PROJECTION}}$ ，所以我们需要计算由 $v_{\text {PROJECTION}}$ 生成中心单词 $w_i$ 的概率为多大，也即是：</p>
+<script type="math/tex; mode=display">
+P\left(w_{i} | w_{i-2}, w_{i-1}, w_{i+1}, w_{i+2}\right)=P\left(w_{i} | v_{P R O J E C T I O N}\right)</script><p>由于给定上下文后，我们可以生成整个词典中的任意一个单词，只是生成的概率不同，那么我们用一个通式表示为：</p>
+<script type="math/tex; mode=display">
+P\left(w_{i} | v_{P R O J E C T I O N}\right) ) \quad w_{i} \in V O C A B</script><p>表示给定上下文单词 $w_{i-2}$,  $w_{i-1}$,  $w_{i+1}$,  $w_{i+2}$ 生成 $w_i$ 的概率。这个值是通过对整个字典中的单词做 softmax 后得到，具体的公式如下：</p>
+<script type="math/tex; mode=display">
+P\left(v_{i} | v_{i-2}, v_{i-1}, v_{i+1}, v_{i+2}\right)=\frac{\exp \left[u_{i}^{T}\left(v_{i-2}+v_{i-1}+v_{i+1}+v_{i+2}\right)\right]}{\sum_{j=1}^{V} \exp \left[u_{j}^{T}\left(v_{i-2}, v_{i-1}, v_{i+1}, v_{i+2}\right)\right]}</script><p>其中，$V$ 表示词典的大小， $v_{i-2}$,  $v_{i-1}$,  $v_{i+1}$,  $v_{i+2}$ 表示上下文单词向量。<em>上式中的 $u_j$ 可以理解为一个打分权重。（存疑）</em></p>
+<h5 id="损失函数及优化"><a href="#损失函数及优化" class="headerlink" title="损失函数及优化"></a>损失函数及优化</h5><p>CBOW 模型中，假设训练数据是一段文本，长度为 $T$。那么，训练样本格式为：</p>
+<script type="math/tex; mode=display">
+\left(\left(w_{i-2}, w_{i-1}, w_{i+1}, w_{i+2}\right), w_{i}\right) \quad 1 \leqslant i \leqslant T</script><p>有训练数据，我们又建立了概率模型，因此我们可以定义一个似然函数，使得训练集中样本的似然概率最大。</p>
+<script type="math/tex; mode=display">
+\prod_{i=1}^{T} P\left(w_{i} | w_{i-2}, w_{i-1}, w_{i+1}, w_{i+2}\right)</script><p>上式就是我们 CBOW 模型的目标函数，为了学习到合适的词向量，我们需要最大化上述似然函数的值，这就等价于最小化如下损失函数的值：</p>
+<script type="math/tex; mode=display">
+-\log \sum_{i=1}^{T} P\left(w_{i} | w_{i-2}, w_{i-1}, w_{i+1}, w_{i+2}\right)</script><p>将具体的概率公式替换，可以得到损失函数为：</p>
+<script type="math/tex; mode=display">
+-\log \sum_{i=1}^{T} \frac{\exp \left[u_{i}^{T}\left(v_{i-2}+v_{i-1}+v_{i+1}+v_{i+2}\right)\right]}{\sum_{j \in V} \exp \left[u_{j}^{T}\left(v_{i-2}+v_{i-1}+v_{i+1}+v_{i+2}\right)\right]}</script><p>采用随机梯度下降方法，多次迭代后可以找到最优值。</p>
+<h4 id="2-如何在-skip-gram-模型上进行高效训练"><a href="#2-如何在-skip-gram-模型上进行高效训练" class="headerlink" title="2. 如何在 skip-gram 模型上进行高效训练"></a>2. 如何在 skip-gram 模型上进行高效训练</h4><p>参考 <a href="https://zhuanlan.zhihu.com/p/27234078" target="_blank" rel="noopener">知乎专栏</a></p>
+<p>不管在 CBOW 模型还是 skip-gram 模型，我们会发现 Word2Vec 模型是一个超级大的神经网络。</p>
+<blockquote>
+<p>如果我们拥有 10000 个单词的词汇表，而我们想嵌入 300 维的词向量，那么我们的 <strong>输入-隐层权重矩阵</strong> 和 <strong>隐层-输出层权重矩阵</strong> 都会有 $1000 \times 300$ 个权重。  </p>
+</blockquote>
+<p>在如此庞大的神经网络中进行梯度下降是相当慢的。更糟糕的是，你需要大量的训练数据来调整这些权重并且避免过拟合。百万数量级的权重矩阵和亿万数量级的训练样本意味着训练这个模型将会是个灾难。</p>
+<p>Word2Vec 的作者在第二篇论文里面强调了这些问题，并提出以下创新：</p>
+<ol>
+<li>将常见单词组合（word pairs） 或者词组作为单个词处理。</li>
+<li>对高频词进行抽样来减少训练样本个数。</li>
+<li>对优化目标采用 “negative sampling” 方法，这样每个训练样本的训练只会更新一小部分的模型权重，从而降低计算负担。</li>
+</ol>
+<p>事实证明，对常用词抽样并且对优化目标采用“negative sampling”不仅降低了训练过程中的计算负担，还提高了训练的词向量的质量。</p>
+<h5 id="高频词抽样"><a href="#高频词抽样" class="headerlink" title="高频词抽样"></a>高频词抽样</h5><p>首先回顾一下训练样本如何从原始文档中产生：</p>
+<ul>
+<li>原始文本：”The quick brown fox jumps over the laze dog.”</li>
+<li>窗口半径：2</li>
+</ul>
+<p><img src="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_4.png" alt></p>
+<p>但是，对于 “the” 这样的高频词，这样的处理方式会存在下面两个问题：</p>
+<ol>
+<li>当我们得到成对的单词训练样本时，(“fox”, “the”) 这样的训练样本并不会给我们提供关于“fox”更多的语义信息，因为“the”在每个单词的上下文中几乎都会出现。</li>
+<li>由于在文本中“the”这样的常用词出现概率很大，因此我们将会有大量的（”the“，…）这样的训练样本，而这些样本数量远远超过了我们学习“the”这个词向量所需的训练样本数。</li>
+</ol>
+<p>Word2Vec通过“抽样”模式来解决这种高频词问题。它的基本思想如下：对于我们在训练原始文本中遇到的每一个单词，它们都有一定概率被我们从文本中删掉，而这个被删除的概率与单词的频率有关。</p>
+<p>word2vec 的 C 语言代码实现了一个计算在词汇表中保留某个词概率的公式。$w_i$ 是一个单词，记 $Z(w_i)$ 为 $w_i$ 这个单词在所有语料中出现的频率。这个值越小意味着这个单词被保留下来的概率越小（即有越大的概率被我们删除）。</p>
+<p>用 $P(w_i)​$ 表示保留某个单词的概率，设定阈值 0.001，那么：</p>
+<script type="math/tex; mode=display">
+P\left(w_{i}\right)=\left(\sqrt{\frac{Z\left(w_{i}\right)}{0.001}}+1\right) \times \frac{0.001}{Z\left(w_{i}\right)}</script><p><img src="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_5.png" alt></p>
+<p>从上图中，我们可以看出：</p>
+<ul>
+<li>当 $Z(w_i) \leq 0.0026$ 时，单词百分之百被保留。</li>
+<li>当 $Z(w_i) = 0.00746$ 时，单词百分之五十被保留。</li>
+<li>当 $Z(w_i) = 1.0$ 时，单词仅有 $3.3 \% $ 的概率被保留。</li>
+</ul>
+<h5 id="负采样"><a href="#负采样" class="headerlink" title="负采样"></a>负采样</h5><p>负采样是用来提高训练速度并且改善所得到词向量的质量的一种方法。不同于原本每个训练样本更新所有的权重，负采样每次让一个训练样本仅仅更新一小部分的权重，这样就会降低梯度下降过程中的计算量。</p>
+<p>当我们用训练样本 ( input word: “fox”，output word: “quick”) 来训练我们的神经网络时，“ fox”和“quick”都是经过one-hot编码的。如果我们的vocabulary大小为10000时，在输出层，我们期望对应“quick”单词的那个神经元结点输出1，其余9999个都应该输出0。在这里，这9999个我们期望输出为0的神经元结点所对应的单词我们称为“negative” word。</p>
+<p>当使用负采样时，我们将随机选择一小部分的negative words（比如选5个negative words）来更新对应的权重。我们也会对我们的“positive” word进行权重更新（在我们上面的例子中，这个单词指的是”quick“）。</p>
+<blockquote>
+<p>在论文中，作者指出指出对于小规模数据集，选择5-20个negative words会比较好，对于大规模数据集可以仅选择2-5个negative words。</p>
+</blockquote>
+<p>回忆一下我们的隐层-输出层拥有 $300 \times 10000$ 的权重矩阵。如果使用了负采样的方法我们仅仅去更新我们的 positive word-“quick” 的和我们选择的其他5个negative words的结点对应的权重，共计 6 个输出神经元，相当于每次只更新 $300 \times 6$ 个权重，这样计算效率就大幅提高。</p>
+<h6 id="如何选择-negative-words"><a href="#如何选择-negative-words" class="headerlink" title="如何选择 negative words"></a>如何选择 negative words</h6><p>我们使用“一元模型分布（unigram distribution）”来选择“negative words”。</p>
+<p>要注意的一点是，一个单词被选作 negative sample 的概率跟它出现的频次有关，出现频次越高的单词越容易被选作 negative words 。</p>
+<script type="math/tex; mode=display">
+P\left(w_{i}\right)=\frac{f\left(w_{i}\right)^{3 / 4}}{\sum_{j=0}^{n}\left(f\left(w_{j}\right)^{3 / 4}\right)}</script><p>其中，$f(w_i)$ 代表着单词出现的频次。</p>
+<h3 id="参考材料"><a href="#参考材料" class="headerlink" title="参考材料"></a>参考材料</h3><p><span id="1">[Collobert et al., 2011] Collobert, R., Weston, J., Bottou, L., Karlen, M., Kavukcuoglu,<br>K., and Kuksa, P. P. (2011). Natural language processing (almost) from scratch.<br>CoRR, abs/1103.0398.</span></p>
+<p><span id="2">[Mikolov et al., 2013] Mikolov, T., Chen, K., Corrado, G., and Dean, J. (2013). Efficient<br>estimation of word representations in vector space. CoRR, abs/1301.3781.</span></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nlp/" rel="tag"><i class="fa fa-tag"></i> nlp</a>
+          
+            <a href="/tags/word2vec/" rel="tag"><i class="fa fa-tag"></i> word2vec</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/07/LeetCode题解（5）：二叉树-遍历/" rel="next" title="LeetCode题解（5）：二叉树-遍历">
+                <i class="fa fa-chevron-left"></i> LeetCode题解（5）：二叉树-遍历
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">sss</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理与深度学习（1）"><span class="nav-number">1.</span> <span class="nav-text">自然语言处理与深度学习（1）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一讲-词向量（I）"><span class="nav-number">1.1.</span> <span class="nav-text">第一讲 词向量（I）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-自然语言处理简介"><span class="nav-number">1.1.1.</span> <span class="nav-text">1 自然语言处理简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-自然语言处理有何特别之处？"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1.1 自然语言处理有何特别之处？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-自然语言处理任务举例"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">1.2 自然语言处理任务举例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简单级别"><span class="nav-number">1.1.1.2.1.</span> <span class="nav-text">简单级别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#中等级别"><span class="nav-number">1.1.1.2.2.</span> <span class="nav-text">中等级别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#困难级别"><span class="nav-number">1.1.1.2.3.</span> <span class="nav-text">困难级别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-如何表示单词"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">1.3 如何表示单词</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-词向量"><span class="nav-number">1.1.2.</span> <span class="nav-text">2 词向量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-奇异值分解方法（SVD-Based-Model）"><span class="nav-number">1.1.3.</span> <span class="nav-text">3 奇异值分解方法（SVD Based Model）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-0-奇异值分解（补充）"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">3.0 奇异值分解（补充）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-特征值与特征向量"><span class="nav-number">1.1.3.1.1.</span> <span class="nav-text">1 特征值与特征向量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-奇异值分解"><span class="nav-number">1.1.3.1.2.</span> <span class="nav-text">2 奇异值分解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-词-文档矩阵（Word-Document-Matrix）"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">3.1 词-文档矩阵（Word-Document Matrix）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-窗口共现矩阵（Window-based-Co-occurrence-Matrix）"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">3.2 窗口共现矩阵（Window based Co-occurrence Matrix）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-对共现矩阵进行奇异值分解"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">3.3 对共现矩阵进行奇异值分解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-基于迭代的方法（Iteration-Based-Methods）——-Word2vec"><span class="nav-number">1.1.4.</span> <span class="nav-text">4 基于迭代的方法（Iteration Based Methods）—— Word2vec</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-语言模型（Unigrams-Bigrams-等）"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">4.1 语言模型（Unigrams, Bigrams 等）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-连续词袋模型（CBOW）"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">4.2 连续词袋模型（CBOW）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-Skip-Gram-模型"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">4.3 Skip-Gram 模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-负采样（Negative-Sampling）"><span class="nav-number">1.1.4.4.</span> <span class="nav-text">4.4 负采样（Negative Sampling）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-分层-softmax"><span class="nav-number">1.1.4.5.</span> <span class="nav-text">4.5 分层 softmax</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补充材料"><span class="nav-number">1.1.5.</span> <span class="nav-text">补充材料</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-CBOW-模型"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">1. CBOW 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#模型简介"><span class="nav-number">1.1.5.1.1.</span> <span class="nav-text">模型简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模型过程"><span class="nav-number">1.1.5.1.2.</span> <span class="nav-text">模型过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#损失函数及优化"><span class="nav-number">1.1.5.1.3.</span> <span class="nav-text">损失函数及优化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-如何在-skip-gram-模型上进行高效训练"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">2. 如何在 skip-gram 模型上进行高效训练</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#高频词抽样"><span class="nav-number">1.1.5.2.1.</span> <span class="nav-text">高频词抽样</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#负采样"><span class="nav-number">1.1.5.2.2.</span> <span class="nav-text">负采样</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#如何选择-negative-words"><span class="nav-number">1.1.5.2.2.1.</span> <span class="nav-text">如何选择 negative words</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考材料"><span class="nav-number">1.1.6.</span> <span class="nav-text">参考材料</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sss</span>
+
+  
+</div>
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+-->
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>
