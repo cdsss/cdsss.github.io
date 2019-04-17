@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="CDS&#39;s Blog">
 <meta property="og:description" content="摊还分析from 算法导论（CLRS） 在摊还分析（amortized analysis）中，我们求数据结构的一个操作序列中所执行的所有操作的平均时间，来评价操作的代价。摊还分析不同于平均情况，它并不涉及概率，它可以保证最坏情况下每个操作的平均性能。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-06T10:28:50.454Z">
+<meta property="og:updated_time" content="2019-04-15T05:38:39.102Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第17章-摊还分析">
 <meta name="twitter:description" content="摊还分析from 算法导论（CLRS） 在摊还分析（amortized analysis）中，我们求数据结构的一个操作序列中所执行的所有操作的平均时间，来评价操作的代价。摊还分析不同于平均情况，它并不涉及概率，它可以保证最坏情况下每个操作的平均性能。">
@@ -337,7 +337,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.6k
+                  5.1k
                 </span>
               
 
@@ -353,7 +353,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  10
+                  21
                 </span>
               
             </div>
@@ -385,7 +385,7 @@
 <li><code>MULTIPOP(S, k)</code>: 弹出栈顶的前 <code>k</code> 个元素，如果元素个数小于 <code>k</code> 则全部弹出。</li>
 </ul>
 <p>通过聚合分析考虑整个序列的 $n$ 个操作：虽然一个单独的 <code>MULTIPOP</code> 操作代价可能很高，但在一个空栈上执行 $n$ 个 <code>PUSH</code>, <code>POP</code>, <code>MULTIPOP</code> 操作序列，代价至多是 $O(n)$。原因在于：</p>
-<p>当一个对象压入栈后，我们至多将其弹出一次。因此，对一个非空的栈，可以执行的 <code>POP</code> 操作的次数（包括<code>MULTIPOP</code> 中调用 <code>POP</code> 的次数）最多与 <code>PUSH</code> 操作的次数相等。因此，对于任意 $n$ 值，任意一个由 $n$ 个操作组成的序列，代价最多为 $O(n)$。每个操作的摊还代价为：$O(1)$。</p>
+<p>当一个对象压入栈后，我们至多将其弹出一次。因此，对一个非空的栈，可以执行的 <code>POP</code> 操作的次数（包括<code>MULTIPOP</code> 中调用 <code>POP</code> 的次数）最多与 <code>PUSH</code> 操作的次数相等。因此，对于任意 $n​$ 值，任意一个由 $n​$ 个操作组成的序列，代价最多为 $O(n)​$。每个操作的摊还代价为：$O(1)​$。</p>
 <h3 id="二进制计数器递增"><a href="#二进制计数器递增" class="headerlink" title="二进制计数器递增"></a>二进制计数器递增</h3><p>$k$ 位二进制计数器递增问题：计数器初值为 0，我们用一个位数组 $A[0 .. k-1]$ 作为计数器。当计数器保存的二进制值为 $x$ 时，$x$ 的最低位保存在 $A[0]$ 中，最高位保存在 $A[k-1]$ 中。具体而言：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">INCREMENT</span><span class="params">(A)</span>:</span></span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; A.length() <span class="keyword">and</span> A[i] == <span class="number">1</span>:</span><br><span class="line">        A[i] = <span class="number">0</span></span><br><span class="line">        i = i + <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> i &lt; A.length():</span><br><span class="line">    	A[i] = <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <p>对于 $n$ 个 <code>INCREMENT</code> 操作组成的序列，$A[i]$ 会翻转 $\lfloor n/ 2^i\rfloor$ 次，因此，该序列进行的翻转操作总数为：</p>
@@ -457,7 +457,123 @@ i & 其他
 \end{cases}</script><p>因此 $n$ 个 <code>Table_insert</code> 操作的总代价满足：</p>
 <script type="math/tex; mode=display">
 \sum_{i=1}^{n}{c_i} \leq n + \sum_{j = 0}^{\lfloor \lg n \rfloor}{2^j} < n + 2n = 3n</script><p>因此，单一操作的摊还代价至多为 3 。</p>
-<h4 id="核方法"><a href="#核方法" class="headerlink" title="核方法"></a>核方法</h4>
+<h4 id="核方法"><a href="#核方法" class="headerlink" title="核方法"></a>核方法</h4><p>当我们的表从 $m​$ 扩张为 $2m​$ 大小时，我们需要移动 $m​$ 个元素。因此共计要支付 $m​$ 美元。</p>
+<p>当我们的表在某次扩张之后大小为 $m$ ，则表中已经存在了 $m/2$ 的元素项，并且表的信用为 $0$。那么我们每插入一个新的元素：立刻发生的插入操作花费 1 美元，预留给自己扩张到 $2m$ 时的费用为 1 美元，为表中已存在的某一元素预留到扩张时的费用为 1 美元。那么到 $m$ 个数据已满时，每个数据项均存储了 1 美元，可以进行扩张。</p>
+<p>所以，我们处理每个数据项只需付出 3 次基本插入操作的代价。</p>
+<h4 id="势能法"><a href="#势能法" class="headerlink" title="势能法"></a>势能法</h4><p>我们定义一个势函数 $\Phi$ ，在表扩张操作之后，其值为 0 。在表满时其值为表的规模，这样就可以利用势能来支付下一次扩张的代价。势能函数定义为：</p>
+<script type="math/tex; mode=display">
+\Phi(T) = 2 \cdot T.num - T.size</script><p>为了分析第 $i$ 次插入操作之后的摊还代价，我们令 $num_i$ 表示第 $i$ 个操作之后表中数据项的数量，$size_i$ 表示第 $i$ 个操作后表的总规模，$\Phi_i$ 表示第 $i$ 个操作后的势。</p>
+<p>如果第 $i​$ 个操作没有触发表扩张：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\hat{c}_i  & = c_i + \Phi_i - \Phi_{i-1} \\
+ & = 1 + (2 \cdot num_i - size_i) - (2 \cdot num_{i-1} - size_{i-1}) \\
+ & = 1 + 2 \cdot (num_i - num_{i-1}) \\
+ & = 3
+ \end{align}</script><p>如果第 $i$ 的操作发生表扩张：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\hat{c}_i  & = c_i + \Phi_i - \Phi_{i-1} \\
+ & = num_i + (2 \cdot num_i - size_i) - (2 \cdot num_{i-1} - size_{i-1}) \\
+ & = num_i + (2 \cdot num_i - 2 \cdot num_{i-1}) - (2 \cdot num_{i-1} - num_{i-1}) \\
+ & = 3
+ \end{align}</script><h3 id="17-4-2-表扩张和收缩"><a href="#17-4-2-表扩张和收缩" class="headerlink" title="17.4.2 表扩张和收缩"></a>17.4.2 表扩张和收缩</h3><p>为了实现删除操作，将指定数据项从表中删除是很简单的。但是为了限制浪费的空间，我们可以在装载因子变得太小时对表进行收缩操作：当表中数据项数量下降的太少时，我们分配一个新的更小的表，然后将数据项从旧表复制到新表中。理想情况下，我们希望保持：</p>
+<ul>
+<li>动态表的装载因子有一个正的常数下界。</li>
+<li>一个表操作的摊还代价有一个常数上界。</li>
+</ul>
+<p>我们假定用基本插入、删除操作的次数来衡量动态表操作的代价。</p>
+<p>当向一个满表插入一个新的数据项时，我们仍然将表的规模加倍，但只有当装载因子小于 $1/4$ 而不是 $1/2$ 时，我们才将表规模减半。因此，装载因子的下界为 $1/4$ 。</p>
+<h4 id="势能法-1"><a href="#势能法-1" class="headerlink" title="势能法"></a>势能法</h4><p>我们用势能法分析 $n$ 个 <code>TABLE-INSERT</code> 和 <code>TABLE-DELETE</code> 操作组成的序列的代价。</p>
+<p>首先定义一个势函数 $\Phi$，在扩张或收缩操作之后其值为 0， 而当装载因子增长到 1 或者降低到 1/4 时，累计足够支付扩张或收缩操作代价的值。定义势函数如下：</p>
+<script type="math/tex; mode=display">
+\Phi(T) = \begin{cases} 2 \cdot T.num - T.size & \text{若} \alpha(T) \geq 1/2\\
+T.size / 2 - T.num & \text{若} \alpha(T) < 1/2
+\end{cases}</script><p>观察到空表的势为 0，且势函数不可能为负，所以用势函数定义的操作序列的总摊还代价是总实际代价的上界。</p>
+<p>为了分析第 $n$ 次 <code>TABLE-INSERT</code>  和 <code>TABLE-DELETE</code> 操作之后的摊还代价，我们令 $num_i$ 表示第 $i$ 个操作之后表中数据项的数量，$size_i$ 表示第 $i$ 个操作后表的总规模，$\Phi_i$ 表示第 $i$ 个操作后的势，$\alpha_i$ 表示第 $i$ 个操作后的装载因子。</p>
+<p>首先分析第 $i​$ 个操作为 <code>TABLE-INSERT</code> 的情况。若 $\alpha_{i-1} \geq 1/2​$，分析与上节类似，不管表扩张与否，操作的摊还代价至多为 3。若 $\alpha_{i-1} &lt; 1/2​$ ，则第 $i​$ 个操作并不能令表扩张，则第 $i​$ 个操作的摊还代价为：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\hat{c}_i  & = c_i + \Phi_i - \Phi_{i-1} \\
+ & = 1 + (size_i/2 - num_i) - (size_{i-1}/2-num_{i-1}) \\
+ & = 1 - 1 \\
+ & = 0
+ \end{align}</script><p>若 $\alpha_{i-1} &lt; 1/2$ 但 $\alpha_{i} \geq 1/2$，则：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\hat{c}_i  & = c_i + \Phi_i - \Phi_{i-1} \\
+ & = 1 + (2 \cdot num_i - size_i) - (size_{i-1}/2-num_{i-1}) \\
+ & = 3 \cdot num_{i-1} - \frac{3}{2}size_{i-1} + 3 \\
+ & \leq 3
+ \end{align}</script><p>因此，一个插入操作的摊还代价至多为 3。</p>
+<p>我们现在来分析第 $i$ 个操作是 <code>TABLE-DELETE</code> 的情况。若 $\alpha_{i-1} &lt; 1/2$，需要考虑删除操作实都引起表收缩，如果未引起表收缩，那么</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\hat{c}_i  & = c_i + \Phi_i - \Phi_{i-1} \\
+ & = 1 + (size_i/2 - num_i) - (size_{i-1}/2-num_{i-1}) \\
+ & = 1 + 1 \\
+ & = 2
+ \end{align}</script><p>而如果引发了表收缩操作，则操作的实际代价为 $c_i = num_i + 1$，因为我们删除了一个数据项，又移动了 $num_i$ 个数据项。我们知道 $size_i/2 = size_{i-1}/4 = num_{i-1} = num_i + 1$，那么</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\hat{c}_i  & = c_i + \Phi_i - \Phi_{i-1} \\
+ & = (num_i + 1) + (size_i/2 - num_i) - (size_{i-1}/2-num_{i-1}) \\
+ & = 1
+ \end{align}</script><p>而当第 $i​$ 个操作是 <code>TABLE-DELETE</code> ，且 $\alpha_{i-1} \geq 1/2​$ 时，如果 $\alpha_{i} \geq 1/2​$，那么不引起收缩操作，</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\hat{c}_i  & = c_i + \Phi_i - \Phi_{i-1} \\
+ & = 1 + (2 \cdot num_i - size_i) - (2 \cdot num_{i-1} - size_{i-1}) \\
+ & = 1
+ \end{align}</script><p>如果 $\alpha_{i} &lt; 1/2$ 并且 $\alpha_{i} \geq 1/4$ 时，</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\hat{c}_i  & = c_i + \Phi_i - \Phi_{i-1} \\
+ & = 1 + (size_i/2 - num_i) - (2 \cdot num_{i-1} - size_{i-1}) \\
+ & = 2
+ \end{align}</script><p>总之，由于每个操作的摊还代价上界是一个常数，在一个动态表上执行任意 $n$ 个操作的实际运行时间为 $O(n)$。</p>
+<h2 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h2><h3 id="17-4-3"><a href="#17-4-3" class="headerlink" title="17.4-3"></a>17.4-3</h3><blockquote>
+<p>Suppose that instead of contracting a table by halving its size when its load factor drops below $1 / 4$, we contract it by multiplying its size by $2/3$ when its load factor drops below $1/3$. Using the potential function</p>
+<script type="math/tex; mode=display">
+\Phi(T) = | 2 \cdot T.num - T.size |</script><p>show that the amortized cost of a <code>TABLE-DELETE</code> that uses this strategy is bounded above by a constant.</p>
+</blockquote>
+<ul>
+<li>$\alpha_i &gt; 1/2$</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned} \hat{c}_{i} &=c_{i}+\Phi_{i}-\Phi_{i-1} \\ &=1+\left(n u m_{i} - size_{i}/2\right)-\left(\left(n u m_{i}+1\right) - size_i/2\right) \\ &=0 \end{aligned}</script><ul>
+<li>$1/3 &lt; \alpha_i \leq 1/2​$</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned} \hat{c}_{i} &=c_{i}+\Phi_{i}-\Phi_{i-1} \\ &=1+\left(s i z e_{i}-2 \cdot n u m_{i}\right)-\left(s i z e_{i}-2 \cdot\left(n u m_{i}+1\right)\right) \\ &=3 \end{aligned}</script><p>如果第 $i$ 次删除操作引起表收缩：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \frac{1}{3} s i z e_{i-1} &=n u m_{i}+1 \\ s i z e_{i-1} &=3\left(n u m_{i}+1\right) \\ s i z e_{i} &=\frac{2}{3} s i z e_{i-1}=2\left(n u m_{i}+1\right) \end{aligned}</script><p>那么</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \hat{c}_{i} &=c_{i}+\Phi_{i}-\Phi_{i-1} \\ &=\left(n u m_{i}+1\right)+\left[2 \cdot\left(n u m_{i}+1\right)-2 \cdot n u m_{i}\right]-\left[3 \cdot\left(n u m_{i}+1\right)-2 \cdot\left(n u m_{i}+1\right)\right] \\ &=2 \end{aligned}</script><h3 id="17-2-动态二分查找"><a href="#17-2-动态二分查找" class="headerlink" title="17-2 动态二分查找"></a>17-2 动态二分查找</h3><blockquote>
+<p>Binary search of a sorted array takes logarithmic search time, but the time to insert a new element is linear in the size of the array. We can improve the time for insertion by keeping several sorted arrays.</p>
+<p>Specifically, suppose that we wish to support $\text{SEARCH}​$ and $\text{INSERT}​$ on a set of $n​$ elements. Let $k = \lceil \lg(n + 1) \rceil​$, and let the binary representation of $n​$ be $\langle n_{k - 1}, n_{k - 2}, \ldots, n_0 \rangle​$. We have $k​$ sorted arrays $A_0, A_1, \ldots, A_{k - 1}​$, where for $i = 0, 1, \ldots, k - 1​$, the length of array $A_i​$ is $2^i​$. Each array is either full or empty, depending on whether $n_i = 1​$ or $n_i = 0​$, respectively. The total number of elements held in all $k​$ arrays is therefore $\sum_{i = 0}^{k - 1} n_i 2^i = n​$. Although each individual array is sorted, elements in different arrays bear no particular relationship to each other.</p>
+<p><strong>a.</strong> Describe how to perform the $\text{SEARCH}$ operation for this data structure. Analyze its worst-case running time.</p>
+<p><strong>b.</strong> Describe how to perform the $\text{INSERT}$ operation. Analyze its worst-case and amortized running times.</p>
+<p><strong>c.</strong> Discuss how to implement $\text{DELETE}$.</p>
+</blockquote>
+<p>a. 搜索操作可以通过搜索每个单独排好序的数组来实现。由于每个数组已经排好序，那么搜索一个数组的时间开销为 $O(\lg m )​$ 其中 $m​$ 为数组的大小。在最坏情况下，我们可以假设 </p>
+<p>$A_0, A_1, \ldots, A_{k - 1}​$ 都是满的，其中 $k=\lceil\lg (n+1)\rceil​$，一次不成功查询花费的总时间为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} T(n) &=\Theta\left(\lg 2^{k-1}+\lg 2^{k-2}+\cdots+\lg 2^{1}+\lg 2^{0}\right) \\ &=\Theta((k-1)+(k-2)+\cdots+1+0) \\ &=\Theta(k(k-1) / 2) \\ &=\Theta(\lceil\lg (n+1)](\lg (n+1)])-1 ) / 2 ) \\ &=\Theta\left(\lg ^{2} n\right) \end{aligned}</script><p>因此，最坏情况下的运行时间为：$\Theta\left(\lg ^{2} n\right)$。</p>
+<p>b. 我们创建一个大小为 1 的数组，其中包含要插入的新元素。如果 $A_0$ 为空，那么我们将 $A_0$ 替换为新构造的数组。否则，我们对两个数组进行归并，依次进行下去。归并两个大小为 $m$ 的有序数组时间为 $2m$。那么，</p>
+<p>最坏情况下，我们假设$A_0, A_1, \ldots, A_{k - 2}$ 都是满的，则：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} T(n) &=2\left(2^{0}+2^{1}+\cdots+2^{k-2}\right) \\ &=2\left(2^{k-1}-1\right) \\ &=2^{k}-2 \\ &=\Theta(n) \end{aligned}</script><p>因此，最坏情况下运行时间为：$\Theta(n)​$。</p>
+<p>我们可以利用核算法分析摊还代价。每次插入操作我们支付 $k $ 美元，其中 $k=\lceil\lg (n+1)\rceil$。其中 1 美元用于实际的插入开销，而 $k-1$ 美元预留为归并时使用。每次合并后，它都会移动到索引更高的数组，例如从 $A_i$ 移动至 $A_{i-1}$ 中。每个元素至多会移动 $k-1$ 次，因此预留的 $k-1$ 美元可以支付每一次元素移动。那么我们每次插入的摊还代价即为：$\Theta(\lg n)$。</p>
+<p>c. </p>
+<p><code>DELETE(x)</code> 操作实现如下：</p>
+<ol>
+<li>寻找到满足 $A_j​$ 数组为满的最小 $j​$。令 $y​$ 为 $A_j​$ 的最后一个元素。</li>
+<li>利用 <code>SEARCH(x)</code> 操作找到 $x$ 所在的数组 $A_i$。</li>
+<li>将 $x$ 从 $A_i$ 中移除，并将 $y$ 置于 $A_i $ 中。之后将 $y$ 移动到其在 $A_i$ 中的正确位置。</li>
+<li>将 $A_j$ 拆分：第 1 个元素置于 $A_0$ 中，接着两个元素置于 $A_1$ 中，接着四个元素置于 $A_2$ 中，依次类推直到 $A_j$ 为空。</li>
+</ol>
+
       
     </div>
     
@@ -634,7 +750,7 @@ i & 其他
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#摊还分析"><span class="nav-number">1.</span> <span class="nav-text">摊还分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#17-1-聚合分析"><span class="nav-number">1.1.</span> <span class="nav-text">17.1 聚合分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈操作"><span class="nav-number">1.1.1.</span> <span class="nav-text">栈操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制计数器递增"><span class="nav-number">1.1.2.</span> <span class="nav-text">二进制计数器递增</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-2-核算法"><span class="nav-number">1.2.</span> <span class="nav-text">17.2 核算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈操作-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">栈操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制计数器递增-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">二进制计数器递增</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-势能法"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 势能法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈操作-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">栈操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制计数器递增-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">二进制计数器递增</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例题"><span class="nav-number">1.4.</span> <span class="nav-text">例题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#17-3-6"><span class="nav-number">1.4.1.</span> <span class="nav-text">17.3-6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-3-7"><span class="nav-number">1.4.2.</span> <span class="nav-text">17.3-7</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-4-动态表"><span class="nav-number">1.5.</span> <span class="nav-text">17.4 动态表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#17-4-1-表扩张"><span class="nav-number">1.5.1.</span> <span class="nav-text">17.4.1 表扩张</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#聚合分析"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">聚合分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#核方法"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">核方法</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#摊还分析"><span class="nav-number">1.</span> <span class="nav-text">摊还分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#17-1-聚合分析"><span class="nav-number">1.1.</span> <span class="nav-text">17.1 聚合分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈操作"><span class="nav-number">1.1.1.</span> <span class="nav-text">栈操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制计数器递增"><span class="nav-number">1.1.2.</span> <span class="nav-text">二进制计数器递增</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-2-核算法"><span class="nav-number">1.2.</span> <span class="nav-text">17.2 核算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈操作-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">栈操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制计数器递增-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">二进制计数器递增</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-势能法"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 势能法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈操作-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">栈操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制计数器递增-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">二进制计数器递增</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例题"><span class="nav-number">1.4.</span> <span class="nav-text">例题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#17-3-6"><span class="nav-number">1.4.1.</span> <span class="nav-text">17.3-6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-3-7"><span class="nav-number">1.4.2.</span> <span class="nav-text">17.3-7</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-4-动态表"><span class="nav-number">1.5.</span> <span class="nav-text">17.4 动态表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#17-4-1-表扩张"><span class="nav-number">1.5.1.</span> <span class="nav-text">17.4.1 表扩张</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#聚合分析"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">聚合分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#核方法"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">核方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#势能法"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">势能法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-4-2-表扩张和收缩"><span class="nav-number">1.5.2.</span> <span class="nav-text">17.4.2 表扩张和收缩</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#势能法-1"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">势能法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#习题"><span class="nav-number">1.6.</span> <span class="nav-text">习题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#17-4-3"><span class="nav-number">1.6.1.</span> <span class="nav-text">17.4-3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-2-动态二分查找"><span class="nav-number">1.6.2.</span> <span class="nav-text">17-2 动态二分查找</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
