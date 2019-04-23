@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_3.png">
 <meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_4.png">
 <meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_5.png">
-<meta property="og:updated_time" content="2019-04-17T11:32:10.512Z">
+<meta property="og:updated_time" content="2019-04-19T14:51:34.486Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cs224n-notes(1)">
 <meta name="twitter:description" content="自然语言处理与深度学习（1）—— CS224n 2019年冬 课程笔记  第一讲 词向量（I）关键词：Natural Language Processing, Word Vectors, Singular Value Decomposition (SVD), Skip-gram, Continuous Bag of Words (CBOW), Negative Sampling, Hierarch">
@@ -629,7 +629,7 @@ P\left(w | w_{i}\right)=\prod_{j=1}^{L(w)-1} \sigma\left([n(w, j+1)=\operatornam
 \begin{aligned} P\left(w_{2} | w_{i}\right) &=p\left(n\left(w_{2}, 1\right), \text { left }\right) \cdot p\left(n\left(w_{2}, 2\right), \text { left }\right) \cdot p\left(n\left(w_{2}, 3\right), \text { right) }\right.\\ &=\sigma\left(v_{n\left(w_{2}, 1\right)}^{T} v_{w_{i}}\right) \cdot \sigma\left(v_{n\left(w_{2}, 2\right)}^{T} v_{w_{i}}\right) \cdot \sigma\left(-v_{n\left(w_{2}, 3\right)}^{T} v_{w_{i}}\right) \end{aligned}</script><p>为了训练这个模型，我们的目标仍然是最小化 $-\log P\left(w | w_{i}\right)$。但是相比于更新每个词的输出向量，我们更新二叉树中在根节点到叶子节点路径上的每个向量值。</p>
 <p>该方法的速度由二叉树的构造方法和赋予叶节点单词的方式决定。作者利用二叉霍夫曼树，这样可以分配高频词更短的路径。</p>
 <h3 id="补充材料"><a href="#补充材料" class="headerlink" title="补充材料"></a>补充材料</h3><h4 id="1-CBOW-模型"><a href="#1-CBOW-模型" class="headerlink" title="1. CBOW 模型"></a>1. CBOW 模型</h4><p>参考 <a href="https://blog.csdn.net/u012762419/article/details/79366052" target="_blank" rel="noopener">word2vec中的CBOW模型</a>。</p>
-<h5 id="模型简介"><a href="#模型简介" class="headerlink" title="模型简介"></a>模型简介</h5><p>CBOW 模型，中文译为“连续词袋模型”，完成的任务是给定中心词 $w_i​$ 的邻域半径内的单词，例如邻域半径为 2 时为：$w_{i-2}​$,  $w_{i-1}​$,  $w_{i+1}​$,  $w_{i+2}​$，预测输出单词为该中心词 $w_i​$ 的概率，由于没有考虑到词之间的顺序，所以称为词袋模型。模型结构如下：</p>
+<h5 id="模型简介"><a href="#模型简介" class="headerlink" title="模型简介"></a>模型简介</h5><p>CBOW 模型，中文译为“连续词袋模型”，完成的任务是给定中心词 $w_i$ 的邻域半径内的单词，例如邻域半径为 2 时为：$w_{i-2}$,  $w_{i-1}$,  $w_{i+1}$,  $w_{i+2}$，预测输出单词为该中心词 $w_i$ 的概率，由于没有考虑到词之间的顺序，所以称为词袋模型。模型结构如下：</p>
 <p><img src="http://pp4gqi65b.bkt.clouddn.com/image/cs224n/1_3.png" alt></p>
 <h5 id="模型过程"><a href="#模型过程" class="headerlink" title="模型过程"></a>模型过程</h5><p>在上述结构示意图中，输入的单词实际上是一个 one-hot 向量。PROJECTION 层通过查表得到：首先初始化一个词向量矩阵 $W_{in}$，$W_{in}$ 是一个二维矩阵，行数等于构建的词典中的单词数目，列数是一个超参数，人为设定，一般为 100。那么其大小为 $|V| \times d$，其中 $|V|$ 是词典的大小，$d$ 是词向量的维度，$v$ 向量则是 $W_{in}$ 的一行，那么 look-up 过程操作如下： </p>
 <script type="math/tex; mode=display">
