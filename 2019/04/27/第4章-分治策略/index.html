@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="CDS&#39;s Blog">
 <meta property="og:description" content="分治策略from 算法导论（CLRS）  分治策略中，我们递归地求解一个问题，在每层递归中应用如下三个步骤：  分解：将问题划分为形式相同、规模更小的子问题。 解决：递归求解子问题。 合并：将子问题的解组合成原问题的解。  递归式与分治法是紧密相关的，使用递归式可以很自然地刻画分治算法的运行时间。一个递归式就是一个等式或不等式，它通过更小的输入上的函数值来描述一个 函数，例如：  T(n)=\le">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="d:/mycourse/专业必修%20-%20算法/picture/4_1.png">
-<meta property="og:updated_time" content="2019-04-27T03:36:24.064Z">
+<meta property="og:image" content="http://pp4gqi65b.bkt.clouddn.com/image/algorithm/DP/15_3.png">
+<meta property="og:updated_time" content="2019-04-27T06:54:12.965Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第4章-分治策略">
 <meta name="twitter:description" content="分治策略from 算法导论（CLRS）  分治策略中，我们递归地求解一个问题，在每层递归中应用如下三个步骤：  分解：将问题划分为形式相同、规模更小的子问题。 解决：递归求解子问题。 合并：将子问题的解组合成原问题的解。  递归式与分治法是紧密相关的，使用递归式可以很自然地刻画分治算法的运行时间。一个递归式就是一个等式或不等式，它通过更小的输入上的函数值来描述一个 函数，例如：  T(n)=\le">
-<meta name="twitter:image" content="d:/mycourse/专业必修%20-%20算法/picture/4_1.png">
+<meta name="twitter:image" content="http://pp4gqi65b.bkt.clouddn.com/image/algorithm/DP/15_3.png">
 
 
 
@@ -403,7 +403,7 @@ T(n)=\left\{\begin{array}{ll}{\Theta(1)} & \text{若}n = 1 \\ {2 T(n / 2)+\Theta
 <li>跨越了中点</li>
 </ol>
 <p>前两种情况仍是最大子数组问题，只是规模更小。因此我们只需寻找跨越中点的最大子数组，然后在三种情况中选取和最大者。</p>
-<p><img src="D:\mycourse\专业必修 - 算法\picture\4_1.png" alt></p>
+<p><img src="http://pp4gqi65b.bkt.clouddn.com/image/algorithm/DP/15_3.png" alt></p>
 <p>我们很容易在线性时间内求出跨越中点的最大子数组。此问题并非原问题规模更小的实例，因为它加入了限制——求出的子数组必须跨越中点。任何跨越中点的子数组都由两个子数组 $A[i..mid]$ 和 $A[mid+1..j]$ 组成。因此我们只需找出形如 $A[i..mid]$ 和 $A[mid+1..j]$ 的最大子数组，然后将其合并即可。</p>
 <p>函数 <code>FIND-MAX-CROSSING-SUBARRAY</code> 返回一个下标元组划定跨越中点的最大子数组的边界，并返回最大子数组中值的和。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">FIND-MAX-CROSSING-SUBARRAY(A, low, mid, high):</span><br><span class="line">left_sum = - inf</span><br><span class="line">sum = 0</span><br><span class="line">for i = mid downto low</span><br><span class="line">	sum = sum + A[i]</span><br><span class="line">	if sum &gt; left_sum</span><br><span class="line">		left_sum = sum</span><br><span class="line">		max_left = i</span><br><span class="line">right_sum = - inf</span><br><span class="line">sum = 0</span><br><span class="line">for j = mid+1 to high</span><br><span class="line">	sum = sum + A[j]</span><br><span class="line">	if sum &gt; right_sum</span><br><span class="line">		right_sum = sum</span><br><span class="line">		max_right = j</span><br><span class="line">return (max_left, max_right, left_sum+right_sum)</span><br></pre></td></tr></table></figure>
@@ -527,6 +527,10 @@ T(n)=a T(n / b)+f(n)</script><p>其中，我们将 $n/b$ 解释为 $\lfloor n / 
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/04/27/第15章-动态规划/" rel="prev" title="第15章-动态规划">
+                第15章-动态规划 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -602,7 +606,7 @@ T(n)=a T(n / b)+f(n)</script><p>其中，我们将 $n/b$ 解释为 $\lfloor n / 
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -624,7 +628,7 @@ T(n)=a T(n / b)+f(n)</script><p>其中，我们将 $n/b$ 解释为 $\lfloor n / 
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
